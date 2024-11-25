@@ -24,12 +24,12 @@ public class DatabaseManager {
         dataSource = new HikariDataSource(config);
     }
 
-    // Método para obtener el DataSource
+    // Metodo para obtener el DataSource
     public static DataSource getDataSource() {
         return dataSource;
     }
 
-    // Método para cerrar el pool al finalizar la aplicación
+    // Metodo para cerrar el pool al finalizar la aplicación
     public static void closePool() {
         if (dataSource != null) {
             dataSource.close();
