@@ -1,9 +1,6 @@
 package es.crttn.dad.controllers;
 
-import es.crttn.dad.controllers.primary.GestionAlumnosController;
-import es.crttn.dad.controllers.primary.GestionComentariosController;
-import es.crttn.dad.controllers.primary.GestionEmpresasController;
-import es.crttn.dad.controllers.primary.GestionVisitasController;
+import es.crttn.dad.controllers.primary.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,11 +40,11 @@ public class RootController implements Initializable {
     }
 
     @FXML
-    void onAsignacionPracticasAction(ActionEvent event) throws IOException {
+    void onGestionEmpresasAction(ActionEvent event) throws IOException{
 
         Stage stage = new Stage();
         GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
-        stage.setTitle("Asiganción de prácticas");
+        stage.setTitle("Gestión de empresas");
         stage.setScene(new Scene(gestionEmpresasController.getRoot()));
         stage.show();
 
@@ -65,24 +62,13 @@ public class RootController implements Initializable {
     }
 
     @FXML
-    void onGestionComentariosAction(ActionEvent event) {
+    void onAsignacionPracticasAction(ActionEvent event) throws IOException {
 
-        GestionComentariosController gestionComentariosController = new GestionComentariosController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de comentarios");
-        stage.setScene(new Scene(gestionComentariosController.getRoot()));
-        stage.show();
-
-    }
-
-    @FXML
-    void onGestionEmpresasAction(ActionEvent event) throws IOException{
+        GestionAsignacionesController gestionAsignacionesController = new GestionAsignacionesController();
 
         Stage stage = new Stage();
-        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
-        stage.setTitle("Gestión de empresas");
-        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.setTitle("Asiganción de prácticas");
+        stage.setScene(new Scene(gestionAsignacionesController.getRoot()));
         stage.show();
 
     }
@@ -98,4 +84,17 @@ public class RootController implements Initializable {
         stage.show();
 
     }
+
+    @FXML
+    void onGestionComentariosAction(ActionEvent event) {
+
+        GestionComentariosController gestionComentariosController = new GestionComentariosController();
+
+        Stage stage = new Stage();
+        stage.setTitle("Gestión de comentarios");
+        stage.setScene(new Scene(gestionComentariosController.getRoot()));
+        stage.show();
+
+    }
+
 }

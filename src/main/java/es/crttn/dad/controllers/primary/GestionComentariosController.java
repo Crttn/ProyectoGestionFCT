@@ -17,7 +17,7 @@ public class GestionComentariosController implements Initializable {
 
     public GestionComentariosController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionComentariosCaptacion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/GestionComentariosCaptacion.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {

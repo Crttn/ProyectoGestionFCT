@@ -17,7 +17,7 @@ public class GestionVisitasController implements Initializable {
 
     public GestionVisitasController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionVisitasSeguimiento.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/GestionVisitasSeguimiento.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {

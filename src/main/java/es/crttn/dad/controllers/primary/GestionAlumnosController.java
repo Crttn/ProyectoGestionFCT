@@ -17,7 +17,7 @@ public class GestionAlumnosController implements Initializable {
 
     public GestionAlumnosController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionAlumnosView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/GestionAlumnosView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {

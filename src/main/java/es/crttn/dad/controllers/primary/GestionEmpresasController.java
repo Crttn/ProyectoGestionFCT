@@ -18,7 +18,7 @@ public class GestionEmpresasController implements Initializable {
 
     public GestionEmpresasController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionEmpresasView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/GestionEmpresasView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
