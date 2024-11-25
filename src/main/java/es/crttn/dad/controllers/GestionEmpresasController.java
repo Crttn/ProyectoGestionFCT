@@ -16,24 +16,7 @@ public class GestionEmpresasController implements Initializable {
     //View
 
     @FXML
-    private Button addButton;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
-    private Button findButton;
-
-    @FXML
     private BorderPane root;
-
-    @FXML
-    private Button updateButton;
-
-    @FXML
-    void onAddButton(ActionEvent event) {
-
-    }
 
     public GestionEmpresasController() {
         try {
@@ -56,17 +39,22 @@ public class GestionEmpresasController implements Initializable {
     }
 
     @FXML
-    void onDeleteButton(ActionEvent event) {
+    void onAddButtonAction(ActionEvent event) {
 
     }
 
     @FXML
-    void onFindButton(ActionEvent event) {
+    void onDeleteButtonAction(ActionEvent event) {
 
     }
 
     @FXML
-    void onUpdateButton(ActionEvent event) {
+    void onFindButtonAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onUpdateButtonAction(ActionEvent event) {
 
     }
 }
