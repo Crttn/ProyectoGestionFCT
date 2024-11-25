@@ -35,7 +35,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
                   <TextField fx:id="nombreEmpresaTextField" />
-                  <Button mnemonicParsing="false" onAction="#onModifyAction" text="Modificar" />
+                  <Button mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                </children>
             </HBox>
          </children>

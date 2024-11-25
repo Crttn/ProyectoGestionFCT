@@ -1,4 +1,4 @@
-package es.crttn.dad.controllers.secondary;
+package es.crttn.dad.controllers.secondary.empresa;
 
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;

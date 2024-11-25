@@ -1,20 +1,15 @@
 package es.crttn.dad.controllers.primary;
 
 import es.crttn.dad.App;
-import es.crttn.dad.controllers.RootController;
-import es.crttn.dad.controllers.secondary.BuscarEmpresaController;
-import es.crttn.dad.controllers.secondary.CrearEmpresaController;
-import es.crttn.dad.controllers.secondary.EliminarEmpresaController;
-import es.crttn.dad.controllers.secondary.ModificaEmpresaController;
+import es.crttn.dad.controllers.secondary.empresa.BuscarEmpresaController;
+import es.crttn.dad.controllers.secondary.empresa.CrearEmpresaController;
+import es.crttn.dad.controllers.secondary.empresa.EliminarEmpresaController;
+import es.crttn.dad.controllers.secondary.empresa.ModificarEmpresaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +19,7 @@ public class GestionEmpresasController implements Initializable {
 
     private CrearEmpresaController cec = new CrearEmpresaController();
     private EliminarEmpresaController eec = new EliminarEmpresaController();
-    private ModificaEmpresaController mec = new ModificaEmpresaController();
+    private ModificarEmpresaController mec = new ModificarEmpresaController();
     private BuscarEmpresaController bec = new BuscarEmpresaController();
 
 
@@ -67,11 +62,15 @@ public class GestionEmpresasController implements Initializable {
 
     @FXML
     void onFindButtonAction(ActionEvent event) {
-        App.getRootController().getRoot().setCenter(bec.getRoot());
+       // App.getRootController().getRoot().setCenter(bec.getRoot());
     }
 
     @FXML
     void onBackAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getRoot());
+    }
+
+    public ModificarEmpresaController getMec() {
+        return mec;
     }
 }
