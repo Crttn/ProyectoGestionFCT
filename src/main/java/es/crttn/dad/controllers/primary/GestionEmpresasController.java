@@ -1,4 +1,4 @@
-package es.crttn.dad.controllers;
+package es.crttn.dad.controllers.primary;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +10,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GestionComentariosController implements Initializable {
+public class GestionEmpresasController implements Initializable {
 
     @FXML
     private BorderPane root;
 
-    public GestionComentariosController() {
+
+    public GestionEmpresasController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionComentariosCaptacion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionEmpresasView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -25,8 +26,9 @@ public class GestionComentariosController implements Initializable {
         }
     }
 
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
 

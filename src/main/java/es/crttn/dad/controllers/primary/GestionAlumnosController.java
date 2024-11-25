@@ -1,25 +1,23 @@
-package es.crttn.dad.controllers;
+package es.crttn.dad.controllers.primary;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GestionEmpresasController implements Initializable {
+public class GestionAlumnosController implements Initializable {
 
     @FXML
     private BorderPane root;
 
-
-    public GestionEmpresasController() {
+    public GestionAlumnosController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionEmpresasView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionAlumnosView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -27,9 +25,8 @@ public class GestionEmpresasController implements Initializable {
         }
     }
 
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
@@ -43,7 +40,7 @@ public class GestionEmpresasController implements Initializable {
     }
 
     @FXML
-    void onDeleteButtonAction(ActionEvent event) {
+    void onDeleteAction(ActionEvent event) {
 
     }
 

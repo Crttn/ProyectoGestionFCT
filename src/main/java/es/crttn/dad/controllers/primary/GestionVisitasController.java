@@ -1,4 +1,4 @@
-package es.crttn.dad.controllers;
+package es.crttn.dad.controllers.primary;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GestionAlumnosController implements Initializable {
+public class GestionVisitasController implements Initializable {
 
     @FXML
     private BorderPane root;
 
-    public GestionAlumnosController() {
+    public GestionVisitasController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionAlumnosView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionVisitasSeguimiento.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class GestionAlumnosController implements Initializable {
     }
 
     @FXML
-    void onDeleteAction(ActionEvent event) {
+    void onDeleteButtonAction(ActionEvent event) {
 
     }
 
