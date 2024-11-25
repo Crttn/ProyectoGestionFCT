@@ -122,7 +122,7 @@ public class BuscarAlumnoController implements Initializable {
                     resultSet.getDate("fecha_nacimiento"),
                     resultSet.getInt("telefono"),
                     resultSet.getInt("codigo_nuss"),
-                    resultSet.getInt("id_curso")
+                    resultSet.getInt("id_curso") //Si quieres runear usa id_curso o Curso
                     );
                     listaAlumnos.add(alumno);
                 }
