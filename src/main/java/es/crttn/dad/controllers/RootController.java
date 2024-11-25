@@ -53,7 +53,7 @@ public class RootController implements Initializable {
 
     @FXML
     void onGestionAlumnosAction(ActionEvent event) {
-        
+
         Stage stage = new Stage();
         GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
         stage.setTitle("Gestión de alumnos");
@@ -68,7 +68,6 @@ public class RootController implements Initializable {
         GestionComentariosController gestionComentariosController = new GestionComentariosController();
 
         Stage stage = new Stage();
-        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
         stage.setTitle("Gestión de comentarios");
         stage.setScene(new Scene(gestionComentariosController.getRoot()));
         stage.show();
