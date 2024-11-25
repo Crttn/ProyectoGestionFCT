@@ -13,10 +13,9 @@ import java.util.ResourceBundle;
 
 public class GestionEmpresasController implements Initializable {
 
-    //View
-
     @FXML
     private BorderPane root;
+
 
     public GestionEmpresasController() {
         try {
