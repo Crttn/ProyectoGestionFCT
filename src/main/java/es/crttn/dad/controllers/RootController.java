@@ -88,10 +88,11 @@ public class RootController implements Initializable {
     @FXML
     void onGestionVisitasAction(ActionEvent event) {
 
+        GestionVisitasController gestionVisitasController = new GestionVisitasController();
+
         Stage stage = new Stage();
-        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
         stage.setTitle("Gestión de Visitas");
-        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.setScene(new Scene(gestionVisitasController.getRoot()));
         stage.show();
 
     }
