@@ -55,9 +55,9 @@ public class RootController implements Initializable {
     void onGestionAlumnosAction(ActionEvent event) {
 
         Stage stage = new Stage();
-        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        GestionAlumnosController gestionAlumnosController = new GestionAlumnosController();
         stage.setTitle("Gestión de alumnos");
-        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.setScene(new Scene(gestionAlumnosController.getRoot()));
         stage.show();
 
     }
