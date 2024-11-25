@@ -1,5 +1,7 @@
 package es.crttn.dad.controllers.primary;
 
+import es.crttn.dad.DatabaseManager;
+import es.crttn.dad.controllers.secondary.BuscarAlumnoController;
 import es.crttn.dad.controllers.secondary.CrearAlumnoController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -70,16 +75,12 @@ public class GestionAlumnosController implements Initializable {
     @FXML
     void onFindButtonAction(ActionEvent event) {
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Buscar Alumno");
-        dialog.setHeaderText("¿Qué alumno deseas actualizar?");
-        dialog.setContentText("Introduce su DNI:");
+        BuscarAlumnoController bac = new BuscarAlumnoController();
 
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(dni -> {
-
-            System.out.println("DNI ingresado: " + dni);
-        });
+        Stage stage = new Stage();
+        stage.setTitle("Buscar Alumnos");
+        stage.setScene(new Scene(bac.getRoot()));
+        stage.show();
 
     }
 

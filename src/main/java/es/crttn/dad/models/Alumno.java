@@ -1,103 +1,77 @@
 package es.crttn.dad.models;
 
+import javafx.beans.property.*;
+
 import java.util.Date;
 
 public class Alumno {
 
-    // Atributos
-    private int idAlumno;
-    private String nombre;
-    private String apellido;
-    private String correo;
-    private String dni;
-    private Date fechaNacimiento;
-    private String telefono;
-    private int codigoNuss;
-    private int curso;
+    private final IntegerProperty idAlumno;
+    private final StringProperty nombre;
+    private final StringProperty apellido;
+    private final StringProperty dni;
+    private final StringProperty correo;
+    private final ObjectProperty<Date> fechaNacimiento;
+    private final IntegerProperty telefono;
+    private final IntegerProperty codigoNuss;
+    private final IntegerProperty idCurso;
 
-    // Constructor
-    public Alumno(int idAlumno, String nombre, String apellido, String correo, String dni, Date fechaNacimiento, String telefono, int codigoNuss, int curso) {
-        this.idAlumno = idAlumno;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.dni = dni;
-        this.fechaNacimiento = fechaNacimiento;
-        this.telefono = telefono;
-        this.codigoNuss = codigoNuss;
-        this.curso = curso;
+    public Alumno(int idAlumno, String nombre, String apellido, String dni, String correo, Date fechaNacimiento, int telefono, int codigoNuss, int idCurso) {
+        this.idAlumno = new SimpleIntegerProperty(idAlumno);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.dni = new SimpleStringProperty(dni);
+        this.correo = new SimpleStringProperty(correo);
+        this.fechaNacimiento = new SimpleObjectProperty<>(fechaNacimiento);
+        this.telefono = new SimpleIntegerProperty(telefono);
+        this.codigoNuss = new SimpleIntegerProperty(codigoNuss);
+        this.idCurso = new SimpleIntegerProperty(idCurso);
     }
 
-    // Getters y Setters
-    public int getIdAlumno() {
+    public IntegerProperty idAlumnoProperty() {
         return idAlumno;
     }
 
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
-    }
-
-    public String getNombre() {
+    public StringProperty nombreProperty() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
+    public StringProperty apellidoProperty() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getDni() {
+    public StringProperty dniProperty() {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public StringProperty correoProperty() {
+        return correo;
     }
 
-    public Date getFechaNacimiento() {
+    public ObjectProperty<Date> fechaNacimientoProperty() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getTelefono() {
+    public IntegerProperty telefonoProperty() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public int getCodigoNuss() {
+    public IntegerProperty codigoNussProperty() {
         return codigoNuss;
     }
 
-    public void setCodigoNuss(int codigoNuss ) {
-        this.codigoNuss = codigoNuss;
+    public IntegerProperty idCursoProperty() {
+        return idCurso;
     }
 
-    public int getCurso() {
-        return curso;
-    }
-
-    public void setCurso(int curso) {
-        this.curso = curso;
-    }
+    // Getters y setters
+    public int getIdAlumno() { return idAlumno.get(); }
+    public String getNombre() { return nombre.get(); }
+    public String getApellido() { return apellido.get(); }
+    public String getDni() { return dni.get(); }
+    public String getCorreo() { return correo.get(); }
+    public Date getFechaNacimiento() { return fechaNacimiento.get(); }
+    public int getTelefono() { return telefono.get(); }
+    public int getCodigoNuss() { return codigoNuss.get(); }
+    public int getIdCurso() { return idCurso.get(); }
 }
