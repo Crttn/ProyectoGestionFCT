@@ -57,6 +57,13 @@
       </GridPane>
    </center>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onBackAction" text="Menú Anterior">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children></HBox>
    </bottom>
 </BorderPane>

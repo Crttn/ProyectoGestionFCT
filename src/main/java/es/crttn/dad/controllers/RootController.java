@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ public class RootController implements Initializable {
     @FXML
     private BorderPane root;
 
+    private GestionMainController gestionMainController;
 
     public RootController() {
         try {
@@ -31,7 +33,9 @@ public class RootController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        gestionMainController = new GestionMainController();
 
+        getRoot().setCenter(gestionMainController.getRoot());
 
     }
 
@@ -39,63 +43,7 @@ public class RootController implements Initializable {
         return root;
     }
 
-    @FXML
-    void onGestionEmpresasAction(ActionEvent event) throws IOException{
-
-        Stage stage = new Stage();
-        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
-        stage.setTitle("Gestión de empresas");
-        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
-        stage.show();
-
+    public GestionMainController getGestionMainController() {
+        return gestionMainController;
     }
-
-    @FXML
-    void onGestionAlumnosAction(ActionEvent event) {
-
-        GestionAlumnosController gestionAlumnosController = new GestionAlumnosController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de alumnos");
-        stage.setScene(new Scene(gestionAlumnosController.getRoot()));
-        stage.show();
-
-    }
-
-    @FXML
-    void onAsignacionPracticasAction(ActionEvent event) throws IOException {
-
-        GestionAsignacionesController gestionAsignacionesController = new GestionAsignacionesController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Asiganción de prácticas");
-        stage.setScene(new Scene(gestionAsignacionesController.getRoot()));
-        stage.show();
-
-    }
-
-    @FXML
-    void onGestionVisitasAction(ActionEvent event) {
-
-        GestionVisitasController gestionVisitasController = new GestionVisitasController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de Visitas");
-        stage.setScene(new Scene(gestionVisitasController.getRoot()));
-        stage.show();
-
-    }
-
-    @FXML
-    void onGestionComentariosAction(ActionEvent event) {
-
-        GestionComentariosController gestionComentariosController = new GestionComentariosController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de comentarios");
-        stage.setScene(new Scene(gestionComentariosController.getRoot()));
-        stage.show();
-
-    }
-
 }

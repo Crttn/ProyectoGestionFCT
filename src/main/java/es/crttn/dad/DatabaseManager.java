@@ -14,7 +14,7 @@ public class DatabaseManager {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://localhost:3306/gestionfct_db");
         config.setUsername("root");
-        config.setPassword(""); //Usuario sin contraseña o 1234
+        config.setPassword("1234"); //Usuario sin contraseña o 1234
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
