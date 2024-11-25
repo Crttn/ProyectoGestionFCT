@@ -43,32 +43,55 @@ public class RootController implements Initializable {
     @FXML
     void onAsignacionPracticasAction(ActionEvent event) throws IOException {
 
-
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml"));
-        Scene scene = new Scene(root);
-        stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(scene);
+        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        stage.setTitle("Asiganción de prácticas");
+        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
         stage.show();
+
     }
 
     @FXML
     void onGestionAlumnosAction(ActionEvent event) {
+
+        Stage stage = new Stage();
+        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        stage.setTitle("Gestión de alumnos");
+        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.show();
 
     }
 
     @FXML
     void onGestionComentariosAction(ActionEvent event) {
 
+        Stage stage = new Stage();
+        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        stage.setTitle("Gestión de comentarios");
+        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.show();
+
     }
 
     @FXML
-    void onGestionEmpresasAction(ActionEvent event) {
+    void onGestionEmpresasAction(ActionEvent event) throws IOException{
+
+        Stage stage = new Stage();
+        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        stage.setTitle("Gestión de empresas");
+        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.show();
 
     }
 
     @FXML
     void onGestionVisitasAction(ActionEvent event) {
+
+        Stage stage = new Stage();
+        GestionEmpresasController gestionEmpresasController = new GestionEmpresasController();
+        stage.setTitle("Gestión de Visitas");
+        stage.setScene(new Scene(gestionEmpresasController.getRoot()));
+        stage.show();
 
     }
 }
