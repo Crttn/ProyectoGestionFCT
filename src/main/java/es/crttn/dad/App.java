@@ -16,4 +16,11 @@ public class App extends Application{
         primaryStage.setScene(new Scene(rootController.getRoot()));
         primaryStage.show();
     }
+
+    @Override
+    public void stop() {
+        // Cerrar el pool de conexiones al cerrar la aplicación
+        DatabaseManager.closePool();
+        System.out.println("Pool de conexiones cerrado correctamente.");
+    }
 }

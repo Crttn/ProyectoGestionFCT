@@ -1,10 +1,14 @@
 package es.crttn.dad.controllers.primary;
 
+import es.crttn.dad.controllers.secondary.CrearEmpresaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +42,13 @@ public class GestionEmpresasController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
+
+        CrearEmpresaController cec = new CrearEmpresaController();
+
+        Stage stage = new Stage();
+        stage.setTitle("Crear Empresa");
+        stage.setScene(new Scene(cec.getRoot()));
+        stage.show();
 
     }
 
