@@ -13,7 +13,7 @@
    <top>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Eliminar Empresa">
+            <Label text="Eliminar Comentario">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -27,14 +27,14 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Introduce el nombre de la empresa a eliminar">
+            <Label text="Indica el ID del comentario a eliminar">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="nombreEmpresaTextField" />
+                  <TextField fx:id="comentarioTextfield" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar" />
                </children>
             </HBox>
