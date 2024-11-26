@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.empresa;
 
+import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -102,4 +103,8 @@ public class CrearEmpresaController implements Initializable {
 
     }
 
+    @FXML
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
+    }
 }
