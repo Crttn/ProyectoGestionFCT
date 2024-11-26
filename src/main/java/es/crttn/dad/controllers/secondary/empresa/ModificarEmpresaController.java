@@ -121,7 +121,23 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onModifyAction(ActionEvent event) {
-        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ? plazas_disp = ?, especialidad = ? WHERE nombre = ?";
+//        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ? plazas_disp = ?, especialidad = ? WHERE nombre = ?";
+//
+//        if (nombreProperty.getValue() != null) {
+//            try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
+//
+//                statement.setString(1, nombreProperty.getValue());
+//                statement.setString(2, direccionProperty.get());
+//                statement.setString(3, correoProperty.getValue());
+//                statement.setString(4, horarioProperty.get());
+//                statement.setInt(5, plazasProperty.getValue());  // Ejemplo: plazas disponibles
+//                statement.setString(6, especialidadProperty.getValue());
+//                statement.setString(7, nombreProperty.getValue()); // Nombre usado en el WHERE
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
     }
 
