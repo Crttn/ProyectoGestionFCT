@@ -1,5 +1,10 @@
 package es.crttn.dad.controllers.primary;
 
+import es.crttn.dad.App;
+import es.crttn.dad.controllers.secondary.visitas.BuscarVisitaController;
+import es.crttn.dad.controllers.secondary.visitas.CrearVisitaController;
+import es.crttn.dad.controllers.secondary.visitas.EliminarVisitaController;
+import es.crttn.dad.controllers.secondary.visitas.ModificarVisitasController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +16,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GestionVisitasController implements Initializable {
+
+    private CrearVisitaController cvc = new CrearVisitaController();
+    private BuscarVisitaController bvc = new BuscarVisitaController();
+    private ModificarVisitasController mvc = new ModificarVisitasController();
+    private EliminarVisitaController evc = new EliminarVisitaController();
 
     @FXML
     private BorderPane root;
@@ -36,21 +46,26 @@ public class GestionVisitasController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onDeleteButtonAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(cvc.getRoot());
     }
 
     @FXML
     void onFindButtonAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(bvc.getRoot());
     }
 
     @FXML
     void onUpdateButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(mvc.getRoot());
+    }
 
+    @FXML
+    void onDeleteButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(evc.getRoot());
+    }
+
+    @FXML
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getRoot());
     }
 }

@@ -144,6 +144,5 @@ public class ModificarEmpresaController implements Initializable {
     @FXML
     void onBackaction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
-
     }
 }

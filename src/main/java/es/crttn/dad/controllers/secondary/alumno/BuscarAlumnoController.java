@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.alumno;
 
+import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
 import es.crttn.dad.models.Alumno;
 import javafx.beans.property.*;
@@ -133,8 +134,6 @@ public class BuscarAlumnoController implements Initializable {
 
     @FXML
     void onBackAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGalc().getRoot());
     }
-
-
 }

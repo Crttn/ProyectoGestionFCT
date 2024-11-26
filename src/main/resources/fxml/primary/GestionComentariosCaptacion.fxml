@@ -62,7 +62,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Menú Anterior">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBackAction" text="Menú Anterior">
                <font>
                   <Font size="14.0" />
                </font>

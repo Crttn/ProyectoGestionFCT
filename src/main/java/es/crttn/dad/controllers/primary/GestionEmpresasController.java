@@ -62,7 +62,7 @@ public class GestionEmpresasController implements Initializable {
 
     @FXML
     void onFindButtonAction(ActionEvent event) {
-       // App.getRootController().getRoot().setCenter(bec.getRoot());
+        App.getRootController().getRoot().setCenter(bec.getRoot());
     }
 
     @FXML
@@ -73,4 +73,6 @@ public class GestionEmpresasController implements Initializable {
     public ModificarEmpresaController getMec() {
         return mec;
     }
+
+
 }

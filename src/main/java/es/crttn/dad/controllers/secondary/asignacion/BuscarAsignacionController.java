@@ -1,5 +1,6 @@
-package es.crttn.dad.controllers.secondary.practicas;
+package es.crttn.dad.controllers.secondary.asignacion;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,13 +70,17 @@ public class BuscarAsignacionController implements Initializable {
 
     }
 
-    @FXML
-    void onBackButtonAction(ActionEvent event) {
-
+    public BorderPane getRoot() {
+        return root;
     }
 
     @FXML
     void onBuscarAlumnoAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBackButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGasc().getRoot());
     }
 }

@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.alumno;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,13 +44,19 @@ public class EliminarAlumnoController implements Initializable {
 
     }
 
-    @FXML
-    void onBackButtonAction(ActionEvent event) {
-
+    public BorderPane getRoot() {
+        return root;
     }
+
+
 
     @FXML
     void onDeleteButtonAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBackButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGalc().getRoot());
     }
 }

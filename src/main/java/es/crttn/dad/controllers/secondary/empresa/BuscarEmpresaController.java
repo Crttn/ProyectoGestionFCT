@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.empresa;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,14 +73,18 @@ public class BuscarEmpresaController implements Initializable {
 
     }
 
-    @FXML
-    void onBackButtonAction(ActionEvent event) {
-
+    public BorderPane getRoot() {
+        return root;
     }
 
     @FXML
     void onBuscarAlumnoAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
     }
 
 }

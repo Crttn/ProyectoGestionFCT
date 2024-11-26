@@ -1,7 +1,10 @@
 package es.crttn.dad.controllers.primary;
 
+import es.crttn.dad.App;
 import es.crttn.dad.controllers.secondary.alumno.BuscarAlumnoController;
 import es.crttn.dad.controllers.secondary.alumno.CrearAlumnoController;
+import es.crttn.dad.controllers.secondary.alumno.EliminarAlumnoController;
+import es.crttn.dad.controllers.secondary.alumno.ModificarAlumnoController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +20,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GestionAlumnosController implements Initializable {
+
+    BuscarAlumnoController bac = new BuscarAlumnoController();
+    CrearAlumnoController cac = new CrearAlumnoController();
+    EliminarAlumnoController eac = new EliminarAlumnoController();
+    ModificarAlumnoController mac = new ModificarAlumnoController();
 
     @FXML
     private BorderPane root;
@@ -42,55 +50,26 @@ public class GestionAlumnosController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
-
-        CrearAlumnoController crearAlumnoController = new CrearAlumnoController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de empresas");
-        stage.setScene(new Scene(crearAlumnoController.getRoot()));
-        stage.show();
-
+        App.getRootController().getRoot().setCenter(cac.getRoot());
     }
 
     @FXML
     void onDeleteAction(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Eliminar Alumno");
-        dialog.setHeaderText("¿Qué alumno deseas eliminar?");
-        dialog.setContentText("Introduce su DNI:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(dni -> {
-
-            System.out.println("DNI ingresado: " + dni);
-        });
-    }
-
-
-    @FXML
-    void onFindButtonAction(ActionEvent event) {
-
-        BuscarAlumnoController bac = new BuscarAlumnoController();
-
-        Stage stage = new Stage();
-        stage.setTitle("Buscar Alumnos");
-        stage.setScene(new Scene(bac.getRoot()));
-        stage.show();
-
+        App.getRootController().getRoot().setCenter(eac.getRoot());
     }
 
     @FXML
     void onUpdateButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(mac.getRoot());
+    }
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Buscar Alumno");
-        dialog.setHeaderText("¿Qué alumno deseas actualizar?");
-        dialog.setContentText("Introduce su DNI:");
+    @FXML
+    void onFindButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(bac.getRoot());
+    }
 
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(dni -> {
-
-            System.out.println("DNI ingresado: " + dni);
-        });
+    @FXML
+    void onBackButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getRoot());
     }
 }

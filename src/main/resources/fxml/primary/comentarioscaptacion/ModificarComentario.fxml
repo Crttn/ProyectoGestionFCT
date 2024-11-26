@@ -40,7 +40,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
                   <TextField fx:id="comentarioTextfield" promptText="ID Comentario" />
-                  <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Buscar" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                </children>
             </HBox>
             <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
@@ -70,9 +70,14 @@
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonaction" text="Menú Anterior">
+            <Button layoutX="186.0" layoutY="10.0" mnemonicParsing="false" onAction="#onApplyAction" text="Modificar">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onBackAction" text="Menú Anterior">
                <font>
                   <Font size="14.0" />
                </font>

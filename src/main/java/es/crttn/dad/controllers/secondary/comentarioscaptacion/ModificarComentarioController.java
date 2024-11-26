@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.comentarioscaptacion;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,14 +51,24 @@ public class ModificarComentarioController implements Initializable {
 
     }
 
+    public BorderPane getRoot() {
+        return root;
+    }
+
+
     @FXML
-    void onAddButtonAction(ActionEvent event) {
+    void onApplyAction(ActionEvent event) {
 
     }
 
     @FXML
-    void onBackButtonAction(ActionEvent event) {
+    void onSearchAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGcc().getRoot());
     }
 
 }

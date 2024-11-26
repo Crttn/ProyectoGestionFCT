@@ -1,4 +1,4 @@
-package es.crttn.dad.controllers.secondary.comentarioscaptacion;
+package es.crttn.dad.controllers.secondary.asignacion;
 
 import es.crttn.dad.App;
 import javafx.event.ActionEvent;
@@ -6,34 +6,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CrearComentarioController implements Initializable {
+public class EliminarAsignacionController implements Initializable {
 
     @FXML
-    private Button addButton;
+    private TextField AsignacionTextfield;
 
     @FXML
     private Button backButton;
 
     @FXML
-    private TextArea comentarioArea;
-
-    @FXML
-    private DatePicker fechacomentario;
+    private Button deleteButton;
 
     @FXML
     private BorderPane root;
 
-    public CrearComentarioController() {
+    public EliminarAsignacionController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/comentarioscaptacion/crearcomentariocaptacion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/asignacionpracticas/EliminarAsignacionView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -41,10 +37,8 @@ public class CrearComentarioController implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
     }
 
@@ -53,12 +47,14 @@ public class CrearComentarioController implements Initializable {
     }
 
     @FXML
-    void onAddButtonAction(ActionEvent event) {
+    void onDeleteButtonAction(ActionEvent event) {
 
     }
 
     @FXML
     void onBackButtonAction(ActionEvent event) {
-        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGcc().getRoot());
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGasc().getRoot());
     }
+
+
 }

@@ -1,10 +1,10 @@
-package es.crttn.dad.controllers.secondary.practicas;
+package es.crttn.dad.controllers.secondary.visitas;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -12,23 +12,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EliminarAsignacionController implements Initializable {
+public class EliminarVisitaController implements Initializable {
 
     @FXML
     private TextField AsignacionTextfield;
 
     @FXML
-    private Button backButton;
-
-    @FXML
-    private Button deleteButton;
-
-    @FXML
     private BorderPane root;
 
-    public EliminarAsignacionController() {
+    public EliminarVisitaController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/asignacionpracticas/EliminarAsignacionView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/visitasSeguimiento/EliminarVisitaView.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -41,15 +35,17 @@ public class EliminarAsignacionController implements Initializable {
 
     }
 
+    public BorderPane getRoot() {
+        return root;
+    }
+
     @FXML
-    void onBackButtonAction(ActionEvent event) {
+    void onDeleteAction(ActionEvent event) {
 
     }
 
     @FXML
-    void onDeleteButtonAction(ActionEvent event) {
-
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGvc().getRoot());
     }
-
-
 }

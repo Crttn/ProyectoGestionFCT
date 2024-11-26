@@ -1,5 +1,6 @@
 package es.crttn.dad.controllers.secondary.alumno;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +68,6 @@ public class CrearAlumnoController implements Initializable {
 
     @FXML
     void onCancelAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGalc().getRoot());
     }
 }

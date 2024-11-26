@@ -39,7 +39,7 @@
                 <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                     <children>
                         <TextField fx:id="nombreEmpresaTextField" promptText="ID Alumno" />
-                        <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Buscar" />
+                        <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                     </children>
                 </HBox>
                 <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">

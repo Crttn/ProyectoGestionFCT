@@ -1,5 +1,10 @@
 package es.crttn.dad.controllers.primary;
 
+import es.crttn.dad.App;
+import es.crttn.dad.controllers.secondary.asignacion.BuscarAsignacionController;
+import es.crttn.dad.controllers.secondary.asignacion.CrearAsignacionController;
+import es.crttn.dad.controllers.secondary.asignacion.EliminarAsignacionController;
+import es.crttn.dad.controllers.secondary.asignacion.ModificarAsignacionController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +16,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GestionAsignacionesController implements Initializable {
+
+    CrearAsignacionController cac = new CrearAsignacionController();
+    BuscarAsignacionController bac = new BuscarAsignacionController();
+    ModificarAsignacionController mac = new ModificarAsignacionController();
+    EliminarAsignacionController eac = new EliminarAsignacionController();
 
     @FXML
     private BorderPane root;
@@ -36,21 +46,21 @@ public class GestionAsignacionesController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onDeleteAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(cac.getRoot());
     }
 
     @FXML
     void onFindButtonAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(bac.getRoot());
     }
 
     @FXML
     void onUpdateButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(mac.getRoot());
+    }
 
+    @FXML
+    void onDeleteAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(eac.getRoot());
     }
 }

@@ -1,5 +1,6 @@
-package es.crttn.dad.controllers.secondary.seguimiento;
+package es.crttn.dad.controllers.secondary.visitas;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +57,6 @@ public class CrearVisitaController implements Initializable {
 
     @FXML
     void onBackButtonAction(ActionEvent event) {
-
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGvc().getRoot());
     }
 }

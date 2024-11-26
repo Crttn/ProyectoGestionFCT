@@ -1,5 +1,6 @@
-package es.crttn.dad.controllers.secondary.practicas;
+package es.crttn.dad.controllers.secondary.asignacion;
 
+import es.crttn.dad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +50,7 @@ public class ModificarAsignacionController implements Initializable {
 
     public ModificarAsignacionController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/asignacionpracticas/ModificarAsigna.fxml.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/asignacionpracticas/ModificarAsigna.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -63,18 +64,24 @@ public class ModificarAsignacionController implements Initializable {
 
     }
 
+    public BorderPane getRoot() {
+        return root;
+    }
+
     @FXML
     void onAddButtonAction(ActionEvent event) {
 
     }
 
-    @FXML
-    void onBackButtonAction(ActionEvent event) {
 
-    }
 
     @FXML
     void onDeleteAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBackButtonAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGasc().getRoot());
     }
 }

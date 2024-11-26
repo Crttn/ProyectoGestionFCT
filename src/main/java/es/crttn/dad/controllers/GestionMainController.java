@@ -73,4 +73,20 @@ public class GestionMainController implements Initializable {
     public GestionEmpresasController getGec() {
         return gec;
     }
+
+    public GestionAlumnosController getGalc() {
+        return galc;
+    }
+
+    public GestionComentariosController getGcc() {
+        return gcc;
+    }
+
+    public GestionAsignacionesController getGasc() {
+        return gasc;
+    }
+
+    public GestionVisitasController getGvc() {
+        return gvc;
+    }
 }
