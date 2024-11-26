@@ -104,8 +104,14 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#onAddAction" text="Añadir Alumno" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onAddAction" text="Añadir Alumno">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Menú Anterior">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
          </children>
       </HBox>
    </bottom>

@@ -2,9 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -18,7 +16,7 @@
    <top>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Modificar Comentario">
+            <Label text="Modificar Asignación">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -32,32 +30,46 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Introduce el ID del comentario a modificar:">
+            <Label text="Introduce el ID de la Práctica a modificar:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="nombreEmpresaTextField" promptText="ID Comentario" />
+                  <TextField fx:id="nombreEmpresaTextField" promptText="ID Práctica" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Buscar" />
                </children>
             </HBox>
             <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Fecha:" />
-                  <Label text="Comentario:" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="comentarioFecha" GridPane.columnIndex="1" />
-                  <TextArea fx:id="comentarioArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label />
+                  <Label text="ID_Empresa:" GridPane.rowIndex="1" />
+                  <Label text="ID_Alumno:" />
+                  <Label text="ID_Tutor_Docente:" GridPane.rowIndex="2" />
+                  <Label text="ID_Tutor_Empresa:" GridPane.rowIndex="3" />
+                  <Label text="Fecha_Inicio:" GridPane.rowIndex="4" />
+                  <Label text="Fecha_Fin:" GridPane.rowIndex="5" />
+                  <TextField fx:id="idalumnoTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+                  <TextField fx:id="idempresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+                  <TextField fx:id="idtutordocenteTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+                  <TextField fx:id="idtutorempresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+                  <TextField fx:id="fechainicioTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
+                  <TextField fx:id="fechafinTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -70,9 +82,14 @@
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#onBackaction" text="Menú Anterior">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#onAddButtonAction" text="Aplicar Cambios">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
                <font>
                   <Font size="14.0" />
                </font>

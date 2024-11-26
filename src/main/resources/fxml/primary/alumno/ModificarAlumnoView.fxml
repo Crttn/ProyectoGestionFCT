@@ -10,103 +10,97 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Modificar alumno">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Nombre:" />
-            <TextField fx:id="StudendName" GridPane.columnIndex="1" GridPane.columnSpan="2">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="StudentSurname" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <Label text="Apellidos:" GridPane.rowIndex="1" />
-            <Label text="Correo:" GridPane.rowIndex="2" />
-            <Label text="DNI:" GridPane.rowIndex="3" />
-            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Fecha de Nacimiento:" textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="3" />
-            <Label text="Telefono:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label text="Curso:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Label text="Codigo NUSS:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TextField fx:id="StudentsEmail" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="StudentsDNI" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <DatePicker fx:id="StudendsDate" GridPane.columnIndex="4" GridPane.columnSpan="2">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </DatePicker>
-            <TextField fx:id="StudentsPhone" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="StudentsClass" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="StudentsNUSS" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </TextField>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </center>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#onAddAction" text="Añadir Modificacion" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancelAction" text="Cancelar" />
-         </children>
-      </HBox>
-   </bottom>
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Modificar Alumno">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets top="30.0" />
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Introduce el ID del Alumno a modificar:">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="nombreEmpresaTextField" promptText="ID Alumno" />
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Buscar" />
+                    </children>
+                </HBox>
+                <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label />
+                        <Label text="Apellidos:" GridPane.rowIndex="1" />
+                        <Label text="Nombre:" />
+                        <Label text="Correo:" GridPane.rowIndex="2" />
+                        <Label text="DNI:" GridPane.rowIndex="3" />
+                        <TextField fx:id="idalumnoTextfield" GridPane.columnIndex="1" />
+                        <TextField fx:id="idempresaTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="idtutordocenteTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="idtutorempresaTextfield" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Fecha Nacimiento:" GridPane.columnIndex="2" />
+                  <Label text="Telefono:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Curso:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Codigo Nuss:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="fechaNacimiento" GridPane.columnIndex="3" />
+                  <TextField fx:id="telefonoTextfield" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="cursoTextfield" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="codigoNussTextfield" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </GridPane>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onAddButtonAction" text="Aplicar Cambios">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </BorderPane.margin>
+        </HBox>
+    </bottom>
 </BorderPane>
