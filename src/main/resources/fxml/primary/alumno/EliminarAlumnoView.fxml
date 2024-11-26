@@ -27,11 +27,11 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Eliminar Alumno">
+            <Button fx:id="deleteButton" defaultButton="true" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Eliminar Alumno">
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
+            <Button fx:id="backButton" cancelButton="true" mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
                <font>
                   <Font size="14.0" />
                </font></Button>

@@ -104,7 +104,7 @@ public class CrearEmpresaController implements Initializable {
     }
 
     @FXML
-    void onBackAction(ActionEvent event) {
+    void onBackButtonAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
     }
 }
