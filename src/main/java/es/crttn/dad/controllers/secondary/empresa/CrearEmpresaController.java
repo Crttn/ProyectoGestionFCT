@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
@@ -18,6 +19,13 @@ import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
 public class CrearEmpresaController implements Initializable {
+
+
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private TextField correoEmpresa;

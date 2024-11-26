@@ -1,10 +1,9 @@
-package es.crttn.dad.controllers.secondary.empresa;
+package es.crttn.dad.controllers.secondary.practicas;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,37 +14,31 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BuscarEmpresaController implements Initializable {
+public class BuscarAsignacionController implements Initializable {
+
+    @FXML
+    private TableView<?> asignacionView;
 
     @FXML
     private Button backButton;
 
     @FXML
-    private TableView<?> buscarempresaView;
+    private TableColumn<?, ?> columnafechafin;
 
     @FXML
-    private TableColumn<?, ?> columnacorreo;
+    private TableColumn<?, ?> columnafechainicio;
 
     @FXML
-    private TableColumn<?, ?> columnadireccion;
-
-    @FXML
-    private TableColumn<?, ?> columnaespecialidad;
-
-    @FXML
-    private TableColumn<?, ?> columnahorario;
+    private TableColumn<?, ?> columnaidalumno;
 
     @FXML
     private TableColumn<?, ?> columnaidempresa;
 
     @FXML
-    private TableColumn<?, ?> columnaidtutorempresa;
+    private TableColumn<?, ?> columnaidpractica;
 
     @FXML
-    private TableColumn<?, ?> columnanombre;
-
-    @FXML
-    private TableColumn<?, ?> columnaplazas;
+    private TableColumn<?, ?> columnaidtutordocente;
 
     @FXML
     private Button findButton;
@@ -54,11 +47,14 @@ public class BuscarEmpresaController implements Initializable {
     private TextField idcomentariotextfield;
 
     @FXML
+    private TableColumn<?, ?> idtutorempresa;
+
+    @FXML
     private BorderPane root;
 
-    public BuscarEmpresaController() {
+    public BuscarAsignacionController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/empresa/BuscarEmpresaView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/asignacionpracticas/BuscarAsignacion.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
@@ -69,6 +65,7 @@ public class BuscarEmpresaController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
     }
 
@@ -81,5 +78,4 @@ public class BuscarEmpresaController implements Initializable {
     void onBuscarAlumnoAction(ActionEvent event) {
 
     }
-
 }

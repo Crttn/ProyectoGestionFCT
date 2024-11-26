@@ -1,10 +1,9 @@
-package es.crttn.dad.controllers.secondary.empresa;
+package es.crttn.dad.controllers.secondary.comentarioscaptacion;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,37 +14,25 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BuscarEmpresaController implements Initializable {
+public class BuscarComentarioController implements Initializable {
 
     @FXML
     private Button backButton;
 
     @FXML
-    private TableView<?> buscarempresaView;
-
-    @FXML
-    private TableColumn<?, ?> columnacorreo;
-
-    @FXML
-    private TableColumn<?, ?> columnadireccion;
-
-    @FXML
-    private TableColumn<?, ?> columnaespecialidad;
-
-    @FXML
-    private TableColumn<?, ?> columnahorario;
-
-    @FXML
     private TableColumn<?, ?> columnaidempresa;
 
     @FXML
-    private TableColumn<?, ?> columnaidtutorempresa;
+    private TableView<?> comentarioCaptacionView;
 
     @FXML
-    private TableColumn<?, ?> columnanombre;
+    private TableColumn<?, ?> comentarios;
 
     @FXML
-    private TableColumn<?, ?> columnaplazas;
+    private TableColumn<?, ?> culumnaidcomentario;
+
+    @FXML
+    private TableColumn<?, ?> fecha;
 
     @FXML
     private Button findButton;
@@ -56,16 +43,15 @@ public class BuscarEmpresaController implements Initializable {
     @FXML
     private BorderPane root;
 
-    public BuscarEmpresaController() {
+    public BuscarComentarioController() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/empresa/BuscarEmpresaView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/comentarioscaptacion/BuscarComentario.fxml"));
             loader.setController(this);
             loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,8 +64,7 @@ public class BuscarEmpresaController implements Initializable {
     }
 
     @FXML
-    void onBuscarAlumnoAction(ActionEvent event) {
+    void onFindButtonAction(ActionEvent event) {
 
     }
-
 }

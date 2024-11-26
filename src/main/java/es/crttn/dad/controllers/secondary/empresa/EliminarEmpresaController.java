@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +22,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EliminarEmpresaController implements Initializable {
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private TextField nombreEmpresaTextField;
@@ -52,7 +59,7 @@ public class EliminarEmpresaController implements Initializable {
     }
 
     @FXML
-    void onDeleteAction(ActionEvent event) {
+    void onDeleteButtonAction(ActionEvent event) {
 
         if (empresaProperty != null) {
             Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -81,7 +88,7 @@ public class EliminarEmpresaController implements Initializable {
     }
 
     @FXML
-    void onBackaction(ActionEvent event) {
+    void onBackButtonAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
     }
 }
