@@ -122,13 +122,13 @@
       </GridPane>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="50.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#onCrearEmpresaAction" text="Crear Empresa">
+            <Button fx:id="addButton" defaultButton="true" mnemonicParsing="false" onAction="#onCrearEmpresaAction" text="Crear Empresa">
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
                <font>
                   <Font size="14.0" />
                </font>
