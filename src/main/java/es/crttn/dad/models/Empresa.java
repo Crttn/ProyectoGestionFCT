@@ -1,91 +1,128 @@
 package es.crttn.dad.models;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Empresa {
 
-    // Atributos
-    private int id_empresa;
-    private String nombre;
-    private String direccion;
-    private String correo;
-    private String horario;
-    private int plazas_disp;
-    private String especialidad;
-    private int id_tutor_empresa;
+    // Atributos como Properties
+    private final IntegerProperty id_empresa;
+    private final StringProperty nombre;
+    private final StringProperty direccion;
+    private final StringProperty correo;
+    private final StringProperty horario;
+    private final IntegerProperty plazas_disp;
+    private final StringProperty especialidad;
+    private final IntegerProperty id_tutor_empresa;
 
     // Constructor
     public Empresa(int id_empresa, String nombre, String direccion, String correo, String horario, int plazas_disp, String especialidad, int id_tutor_empresa) {
-        this.id_empresa = id_empresa;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.correo = correo;
-        this.horario = horario;
-        this.plazas_disp = plazas_disp;
-        this.especialidad = especialidad;
-        this.id_tutor_empresa = id_tutor_empresa;
+        this.id_empresa = new SimpleIntegerProperty(id_empresa);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.direccion = new SimpleStringProperty(direccion);
+        this.correo = new SimpleStringProperty(correo);
+        this.horario = new SimpleStringProperty(horario);
+        this.plazas_disp = new SimpleIntegerProperty(plazas_disp);
+        this.especialidad = new SimpleStringProperty(especialidad);
+        this.id_tutor_empresa = new SimpleIntegerProperty(id_tutor_empresa);
     }
 
-    // Getters y Setters
-    public int getId_empresa() {
+    // Getters y Setters para las Properties
+    public IntegerProperty id_empresaProperty() {
         return id_empresa;
     }
 
-    public void setId_empresa(int id_empresa) {
-        this.id_empresa = id_empresa;
+    public int getId_empresa() {
+        return id_empresa.get();
     }
 
-    public String getNombre() {
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa.set(id_empresa);
+    }
+
+    public StringProperty nombreProperty() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombre() {
+        return nombre.get();
     }
 
-    public String getDireccion() {
+    public void setNombre(String nombre) {
+        this.nombre.set(nombre);
+    }
+
+    public StringProperty direccionProperty() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public String getDireccion() {
+        return direccion.get();
     }
 
-    public String getCorreo() {
+    public void setDireccion(String direccion) {
+        this.direccion.set(direccion);
+    }
+
+    public StringProperty correoProperty() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public String getCorreo() {
+        return correo.get();
     }
 
-    public String getHorario() {
+    public void setCorreo(String correo) {
+        this.correo.set(correo);
+    }
+
+    public StringProperty horarioProperty() {
         return horario;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
+    public String getHorario() {
+        return horario.get();
     }
 
-    public int getPlazas_disp() {
+    public void setHorario(String horario) {
+        this.horario.set(horario);
+    }
+
+    public IntegerProperty plazas_dispProperty() {
         return plazas_disp;
     }
 
-    public void setPlazas_disp(int plazas_disp) {
-        this.plazas_disp = plazas_disp;
+    public int getPlazas_disp() {
+        return plazas_disp.get();
     }
 
-    public String getEspecialidad() {
+    public void setPlazas_disp(int plazas_disp) {
+        this.plazas_disp.set(plazas_disp);
+    }
+
+    public StringProperty especialidadProperty() {
         return especialidad;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public String getEspecialidad() {
+        return especialidad.get();
     }
 
-    public int getId_tutor_empresa() {
+    public void setEspecialidad(String especialidad) {
+        this.especialidad.set(especialidad);
+    }
+
+    public IntegerProperty id_tutor_empresaProperty() {
         return id_tutor_empresa;
     }
 
+    public int getId_tutor_empresa() {
+        return id_tutor_empresa.get();
+    }
+
     public void setId_tutor_empresa(int id_tutor_empresa) {
-        this.id_tutor_empresa = id_tutor_empresa;
+        this.id_tutor_empresa.set(id_tutor_empresa);
     }
 }

@@ -1,6 +1,13 @@
 package es.crttn.dad.controllers.secondary.visitas;
 
 import es.crttn.dad.App;
+import es.crttn.dad.DatabaseManager;
+import es.crttn.dad.models.Alumno;
+import es.crttn.dad.models.VisitaSeguimiento;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,33 +16,41 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class BuscarVisitaController implements Initializable {
 
     @FXML
-    private TableView<?> VisitasSeguimientoView;
+    private TableView<VisitaSeguimiento> visitasTableView;
 
     @FXML
-    private TableColumn<?, ?> columnaidpractica;
+    private TableColumn<VisitaSeguimiento, Date> fechaColumn;
 
     @FXML
-    private TableColumn<?, ?> culumnaidvisita;
+    private TableColumn<VisitaSeguimiento, Integer> idPracticaColumn;
 
     @FXML
-    private TableColumn<?, ?> fecha;
+    private TableColumn<VisitaSeguimiento, Integer> idVisitaColumn;
 
     @FXML
-    private TextField idpracticaTextfield;
+    private TextField idVisitaTextField;
 
     @FXML
-    private TableColumn<?, ?> observaciones;
+    private TableColumn<VisitaSeguimiento, String> observacionesColumn;
 
     @FXML
     private BorderPane root;
+
+    private IntegerProperty idVisitaProperty = new SimpleIntegerProperty();
+    private ObservableList listaVisitas;
 
 
     public BuscarVisitaController() {
@@ -51,6 +66,15 @@ public class BuscarVisitaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        idVisitaTextField.textProperty().bindBidirectional(idVisitaProperty, new NumberStringConverter());
+
+        idVisitaColumn.setCellValueFactory(cellData -> cellData.getValue().idVisitaProperty().asObject());
+        idPracticaColumn.setCellValueFactory(cellData -> cellData.getValue().idPracticaProperty().asObject());
+        fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
+        observacionesColumn.setCellValueFactory(cellData -> cellData.getValue().observacionesProperty());
+
+        listaVisitas = FXCollections.observableArrayList();
+        visitasTableView.setItems(listaVisitas);
     }
 
     public BorderPane getRoot() {
@@ -58,7 +82,32 @@ public class BuscarVisitaController implements Initializable {
     }
 
     @FXML
-    void onBuscarAlumnoAction(ActionEvent event) {
+    void onSearchAction(ActionEvent event) {
+        listaVisitas.clear();
+
+        String querry = "SELECT * FROM visitaseguimiento WHERE id_visita = ?";
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            // Usar los valores obtenidos de las propiedades
+            statement.setString(1, idVisitaProperty.getValue().toString());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(
+                            resultSet.getInt("id_visita"),
+                            resultSet.getInt("id_practica"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("observaciones")
+                    );
+                    listaVisitas.add(visitaSeguimiento);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

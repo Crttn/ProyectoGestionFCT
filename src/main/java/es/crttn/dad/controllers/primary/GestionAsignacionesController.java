@@ -63,4 +63,9 @@ public class GestionAsignacionesController implements Initializable {
     void onDeleteAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(eac.getRoot());
     }
+
+    @FXML
+    void onBackAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getRoot());
+    }
 }

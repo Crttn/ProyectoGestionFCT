@@ -1,11 +1,16 @@
 package es.crttn.dad.controllers.secondary.empresa;
 
 import es.crttn.dad.App;
+import es.crttn.dad.DatabaseManager;
+import es.crttn.dad.models.Empresa;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,6 +19,9 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class BuscarEmpresaController implements Initializable {
@@ -22,40 +30,43 @@ public class BuscarEmpresaController implements Initializable {
     private Button backButton;
 
     @FXML
-    private TableView<?> buscarempresaView;
+    private TableView<Empresa> empresasTableView;
 
     @FXML
-    private TableColumn<?, ?> columnacorreo;
+    private TableColumn<Empresa, String> columnacorreo;
 
     @FXML
-    private TableColumn<?, ?> columnadireccion;
+    private TableColumn<Empresa, String> columnadireccion;
 
     @FXML
-    private TableColumn<?, ?> columnaespecialidad;
+    private TableColumn<Empresa, String> columnaespecialidad;
 
     @FXML
-    private TableColumn<?, ?> columnahorario;
+    private TableColumn<Empresa, String> columnahorario;
 
     @FXML
-    private TableColumn<?, ?> columnaidempresa;
+    private TableColumn<Empresa, Integer> columnaidempresa;
 
     @FXML
-    private TableColumn<?, ?> columnaidtutorempresa;
+    private TableColumn<Empresa, Integer> columnaidtutorempresa;
 
     @FXML
-    private TableColumn<?, ?> columnanombre;
+    private TableColumn<Empresa, String> columnanombre;
 
     @FXML
-    private TableColumn<?, ?> columnaplazas;
+    private TableColumn<Empresa, Integer> columnaplazas;
 
     @FXML
-    private Button findButton;
+    private Button buscarButton;
 
     @FXML
-    private TextField idcomentariotextfield;
+    private TextField nombreTextField;
 
     @FXML
     private BorderPane root;
+
+    private final StringProperty nombreProperty = new SimpleStringProperty();
+    private ObservableList listEmpresas;
 
     public BuscarEmpresaController() {
         try {
@@ -67,9 +78,22 @@ public class BuscarEmpresaController implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        nombreTextField.textProperty().bindBidirectional(nombreProperty);
+
+        columnaidempresa.setCellValueFactory(cellData -> cellData.getValue().id_empresaProperty().asObject());
+        columnanombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        columnadireccion.setCellValueFactory(cellData -> cellData.getValue().direccionProperty());
+        columnacorreo.setCellValueFactory(cellData -> cellData.getValue().correoProperty());
+        columnahorario.setCellValueFactory(cellData -> cellData.getValue().horarioProperty());
+        columnaplazas.setCellValueFactory(cellData -> cellData.getValue().plazas_dispProperty().asObject());
+        columnaespecialidad.setCellValueFactory(cellData -> cellData.getValue().especialidadProperty());
+        columnaidtutorempresa.setCellValueFactory(cellData -> cellData.getValue().id_tutor_empresaProperty().asObject());
+
+        listEmpresas = FXCollections.observableArrayList();
+        empresasTableView.setItems(listEmpresas);
 
     }
 
@@ -80,6 +104,34 @@ public class BuscarEmpresaController implements Initializable {
     @FXML
     void onBuscarAlumnoAction(ActionEvent event) {
 
+        listEmpresas.clear();
+
+        String querry = "SELECT * FROM empresa WHERE nombre = ?";
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            statement.setString(1, nombreProperty.getValue());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Empresa empresa = new Empresa(
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("direccion"),
+                            resultSet.getString("correo"),
+                            resultSet.getString("horario"),
+                            resultSet.getInt("plazas_disp"),
+                            resultSet.getString("especialidad"),
+                            resultSet.getInt("id_tutor_empresa")
+                    );
+                    listEmpresas.add(empresa);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
