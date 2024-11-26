@@ -1,9 +1,7 @@
-package es.crttn.dad.controllers.secondary;
+package es.crttn.dad.controllers.secondary.alumno;
 
-import com.sun.jdi.event.StepEvent;
 import es.crttn.dad.DatabaseManager;
 import es.crttn.dad.models.Alumno;
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

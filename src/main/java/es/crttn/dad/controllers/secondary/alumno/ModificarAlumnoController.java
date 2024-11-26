@@ -1,4 +1,4 @@
-package es.crttn.dad.controllers.secondary;
+package es.crttn.dad.controllers.secondary.alumno;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
