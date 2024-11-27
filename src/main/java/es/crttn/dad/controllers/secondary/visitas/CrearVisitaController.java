@@ -5,7 +5,6 @@ import es.crttn.dad.DatabaseManager;
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import java.util.Date;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +17,7 @@ import javafx.util.converter.NumberStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -43,7 +43,7 @@ public class CrearVisitaController implements Initializable {
     @FXML
     private DatePicker visitaFecha;
 
-    private final ObjectProperty<Date> fechaProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
     private final StringProperty observacionesProperty = new SimpleStringProperty();
     private final IntegerProperty idpracticaProperty = new SimpleIntegerProperty();
 
@@ -62,22 +62,7 @@ public class CrearVisitaController implements Initializable {
 
         idpracticaTextfield.textProperty().bindBidirectional(idpracticaProperty, new NumberStringConverter());
         observacionesArea.textProperty().bindBidirectional(observacionesProperty);
-
-        visitaFecha.valueProperty().addListener((obs, oldv, newv) -> {
-            if (newv != null) {
-                fechaProperty.set(Date.from(newv.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            } else {
-                fechaProperty.set(null);
-            }
-        });
-
-        fechaProperty.addListener((obs, oldDate, newDate) -> {
-            if (newDate != null) {
-                visitaFecha.setValue(newDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            } else {
-                visitaFecha.setValue(null);
-            }
-        });
+        visitaFecha.valueProperty().bindBidirectional(fechaProperty);
 
     }
 
@@ -100,7 +85,7 @@ public class CrearVisitaController implements Initializable {
 
             // Preparar valores para la consulta
             statement.setInt(1, idpracticaProperty.getValue());
-            statement.setDate(2, new java.sql.Date(fechaProperty.getValue().getTime())); // Convertir java.util.Date a java.sql.Date
+            statement.setDate(2, Date.valueOf(fechaProperty.getValue())); // Convertir java.util.Date a java.sql.Date
             statement.setString(3, observacionesProperty.getValue());
 
             // Ejecutar la consulta

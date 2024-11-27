@@ -21,9 +21,6 @@ import java.util.ResourceBundle;
 
 public class ModificarVisitasController implements Initializable {
 
-    private final ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
-    private final StringProperty observacionesProperty = new SimpleStringProperty();
-    private final IntegerProperty idProperty = new SimpleIntegerProperty();
     @FXML
     private Button addButton;
 
@@ -45,6 +42,10 @@ public class ModificarVisitasController implements Initializable {
     @FXML
     private DatePicker visitaFecha;
 
+    private final ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
+    private final StringProperty observacionesProperty = new SimpleStringProperty();
+    private final IntegerProperty idProperty = new SimpleIntegerProperty();
+
     public ModificarVisitasController() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary/visitasSeguimiento/ModificarVisita.fxml"));
@@ -59,8 +60,6 @@ public class ModificarVisitasController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         idVisitaTextField.textProperty().bindBidirectional(idProperty, new NumberStringConverter());
-
-
         visitaFecha.valueProperty().bindBidirectional(fechaProperty);
         observacionesArea.textProperty().bindBidirectional(observacionesProperty);
 
@@ -82,12 +81,8 @@ public class ModificarVisitasController implements Initializable {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
-
-
                         visitaFecha.setValue(resultSet.getDate("Fecha").toLocalDate());
                         observacionesArea.setText(resultSet.getString("Observaciones"));
-
-
                     }
                 }
 
