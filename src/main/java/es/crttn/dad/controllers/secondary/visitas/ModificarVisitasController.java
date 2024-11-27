@@ -73,7 +73,6 @@ public class ModificarVisitasController implements Initializable {
     void onSearchButtonAction(ActionEvent event) {
         String querry = "SELECT fecha, observaciones FROM visitaseguimiento WHERE id_visita = ?";
 
-
         if (idProperty.getValue() != null) {
             try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
@@ -85,10 +84,8 @@ public class ModificarVisitasController implements Initializable {
                         observacionesArea.setText(resultSet.getString("Observaciones"));
                     }
                 }
-
                 visitaFecha.setValue(fechaProperty.getValue());
                 observacionesArea.setText(observacionesProperty.getValue());
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -103,9 +100,10 @@ public class ModificarVisitasController implements Initializable {
         if (idProperty.getValue() != null) {
             try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
-                statement.setInt(1, idProperty.getValue());
-                statement.setDate(2, java.sql.Date.valueOf(fechaProperty.getValue()));
-                statement.setString(3, observacionesProperty.getValue());
+
+                statement.setDate(1, java.sql.Date.valueOf(fechaProperty.getValue()));
+                statement.setString(2, observacionesProperty.getValue());
+                statement.setInt(3, idProperty.getValue());
 
                 //Ejecuta la consulta
                 statement.executeUpdate();
