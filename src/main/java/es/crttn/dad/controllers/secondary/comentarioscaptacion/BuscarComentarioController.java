@@ -2,9 +2,7 @@ package es.crttn.dad.controllers.secondary.comentarioscaptacion;
 
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
-import es.crttn.dad.models.Alumno;
 import es.crttn.dad.models.ComentarioCaptacion;
-import es.crttn.dad.models.Empresa;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,7 +48,7 @@ public class BuscarComentarioController implements Initializable {
     @FXML
     private BorderPane root;
 
-    private IntegerProperty idComentraioProperty = new SimpleIntegerProperty();
+    private final IntegerProperty idComentraioProperty = new SimpleIntegerProperty();
     private ObservableList listaComentarios;
 
     public BuscarComentarioController() {
@@ -90,20 +87,34 @@ public class BuscarComentarioController implements Initializable {
 
         String querry = "SELECT * FROM comnetariocaptacion WHERE id_comentario = ?";
 
-        try (Connection connection = DatabaseManager.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(querry)) {
+        try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
             // Usar los valores obtenidos de las propiedades
             statement.setString(1, idComentraioProperty.getValue().toString());
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(
-                            resultSet.getInt("id_comentario"),
-                            resultSet.getDate("fecha"),
-                            resultSet.getString("comentario"),
-                            resultSet.getInt("id_empresa")
-                    );
+                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(resultSet.getInt("id_comentario"), resultSet.getDate("fecha"), resultSet.getString("comentario"), resultSet.getInt("id_empresa"));
+                    listaComentarios.add(comentarioCaptacion);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onSearchAllAction(ActionEvent event) {
+        listaComentarios.clear();
+
+        String querry = "SELECT * FROM comnetariocaptacion";
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(resultSet.getInt("id_comentario"), resultSet.getDate("fecha"), resultSet.getString("comentario"), resultSet.getInt("id_empresa"));
                     listaComentarios.add(comentarioCaptacion);
                 }
             }

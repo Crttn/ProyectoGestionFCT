@@ -2,15 +2,19 @@ package es.crttn.dad.controllers.secondary.empresa;
 
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,7 +60,7 @@ public class CrearEmpresaController implements Initializable {
     StringProperty correoProperty = new SimpleStringProperty();
     StringProperty horarioProperty = new SimpleStringProperty();
     StringProperty plazasProperty = new SimpleStringProperty();
-    StringProperty nombreTutorProperty = new SimpleStringProperty();
+    IntegerProperty nombreTutorProperty = new SimpleIntegerProperty();
     StringProperty especialidadProperty = new SimpleStringProperty();
 
     public CrearEmpresaController() {
@@ -77,7 +81,7 @@ public class CrearEmpresaController implements Initializable {
         correoEmpresa.textProperty().bindBidirectional(correoProperty);
         horarioEmpresa.textProperty().bindBidirectional(horarioProperty);
         plazasDisponibles.textProperty().bindBidirectional(plazasProperty);
-        nombreTutorEmpresa.textProperty().bindBidirectional(nombreTutorProperty);
+        nombreTutorEmpresa.textProperty().bindBidirectional(nombreTutorProperty, new NumberStringConverter());
         especialidadEmpresa.textProperty().bindBidirectional(especialidadProperty);
 
     }
@@ -89,7 +93,7 @@ public class CrearEmpresaController implements Initializable {
     @FXML
     void onCrearEmpresaAction(ActionEvent event) {
 
-        String querry = "INSERT INTO empresa (nombre, direccion, correo, horario, plazas_disp, especialidad) VALUES (?, ?, ?, ?, ?, ?)";
+        String querry = "INSERT INTO empresa (nombre, direccion, correo, horario, plazas_disp, id_tutor_empresa, especialidad) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(querry)) {
@@ -100,10 +104,19 @@ public class CrearEmpresaController implements Initializable {
             statement.setString(3, correoProperty.getValue());
             statement.setString(4, horarioProperty.getValue());
             statement.setString(5, plazasProperty.getValue());
-            statement.setString(6, especialidadProperty.getValue());
+            statement.setInt(6, nombreTutorProperty.getValue());
+            statement.setString(7, especialidadProperty.getValue());
 
             int filasAfectadas = statement.executeUpdate();
             System.out.println("Usuario insertado: " + filasAfectadas + " fila(s) afectada(s)");
+
+            nombreEmpresa.setText("");
+            direccionEmpresa.setText("");
+            correoEmpresa.setText("");
+            horarioEmpresa.setText("");
+            plazasDisponibles.setText("");
+            nombreTutorEmpresa.setText("");
+            especialidadEmpresa.setText("");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,10 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -104,9 +101,9 @@ public class BuscarEmpresaController implements Initializable {
     @FXML
     void onBuscarAlumnoAction(ActionEvent event) {
 
-        listEmpresas.clear();
-
         String querry = "SELECT * FROM empresa WHERE nombre = ?";
+
+        listEmpresas.clear();
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(querry)) {
@@ -114,7 +111,49 @@ public class BuscarEmpresaController implements Initializable {
             statement.setString(1, nombreProperty.getValue());
 
             try (ResultSet resultSet = statement.executeQuery()) {
+                boolean found = false;
+
                 while (resultSet.next()) {
+                    found = true;
+                    Empresa empresa = new Empresa(
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("direccion"),
+                            resultSet.getString("correo"),
+                            resultSet.getString("horario"),
+                            resultSet.getInt("plazas_disp"),
+                            resultSet.getString("especialidad"),
+                            resultSet.getInt("id_tutor_empresa")
+                    );
+                    listEmpresas.add(empresa);
+                }
+                if (!found) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Búsqueda de Empresa");
+                    alert.setHeaderText("Empresa no encontrada");
+                    alert.setContentText("No se encontró ninguna empresa con el nombre: " + nombreProperty.getValue() + " .");
+                    alert.showAndWait();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onSearchAllAction(ActionEvent event) {
+
+        String querry = "SELECT * FROM empresa";
+
+        listEmpresas.clear();
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+
                     Empresa empresa = new Empresa(
                             resultSet.getInt("id_empresa"),
                             resultSet.getString("nombre"),

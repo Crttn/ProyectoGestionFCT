@@ -3,6 +3,7 @@ package es.crttn.dad.controllers.secondary.alumno;
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
 import es.crttn.dad.models.Alumno;
+import es.crttn.dad.models.Empresa;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,6 +123,38 @@ public class BuscarAlumnoController implements Initializable {
                     resultSet.getInt("telefono"),
                     resultSet.getInt("codigo_nuss"),
                     resultSet.getInt("id_curso") //Si quieres runear usa id_curso o Curso
+                    );
+                    listaAlumnos.add(alumno);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onSearchAllAction(ActionEvent event) {
+        String querry = "SELECT * FROM alumno";
+
+        listaAlumnos.clear();
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    Alumno alumno = new Alumno(
+                            resultSet.getInt("id_alumno"),
+                            resultSet.getString("nombre"),
+                            resultSet.getString("apellido"),
+                            resultSet.getString("dni"),
+                            resultSet.getString("correo"),
+                            resultSet.getDate("fecha_nacimiento"),
+                            resultSet.getInt("telefono"),
+                            resultSet.getInt("codigo_nuss"),
+                            resultSet.getInt("id_curso") //Si quieres runear usa id_curso o Curso
                     );
                     listaAlumnos.add(alumno);
                 }

@@ -2,7 +2,6 @@ package es.crttn.dad.controllers.secondary.visitas;
 
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
-import es.crttn.dad.models.Alumno;
 import es.crttn.dad.models.VisitaSeguimiento;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -49,7 +48,7 @@ public class BuscarVisitaController implements Initializable {
     @FXML
     private BorderPane root;
 
-    private IntegerProperty idVisitaProperty = new SimpleIntegerProperty();
+    private final IntegerProperty idVisitaProperty = new SimpleIntegerProperty();
     private ObservableList listaVisitas;
 
 
@@ -87,20 +86,14 @@ public class BuscarVisitaController implements Initializable {
 
         String querry = "SELECT * FROM visitaseguimiento WHERE id_visita = ?";
 
-        try (Connection connection = DatabaseManager.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(querry)) {
+        try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
             // Usar los valores obtenidos de las propiedades
             statement.setString(1, idVisitaProperty.getValue().toString());
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(
-                            resultSet.getInt("id_visita"),
-                            resultSet.getInt("id_practica"),
-                            resultSet.getDate("fecha"),
-                            resultSet.getString("observaciones")
-                    );
+                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(resultSet.getInt("id_visita"), resultSet.getInt("id_practica"), resultSet.getDate("fecha"), resultSet.getString("observaciones"));
                     listaVisitas.add(visitaSeguimiento);
                 }
             }
@@ -109,6 +102,26 @@ public class BuscarVisitaController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    void onSearchAllAction(ActionEvent event) {
+        listaVisitas.clear();
+
+        String querry = "SELECT * FROM visitaseguimiento";
+
+        try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(resultSet.getInt("id_visita"), resultSet.getInt("id_practica"), resultSet.getDate("fecha"), resultSet.getString("observaciones"));
+                    listaVisitas.add(visitaSeguimiento);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

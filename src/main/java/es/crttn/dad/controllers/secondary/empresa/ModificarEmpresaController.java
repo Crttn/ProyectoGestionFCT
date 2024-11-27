@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.util.converter.NumberStringConverter;
@@ -23,36 +24,28 @@ import java.util.ResourceBundle;
 
 public class ModificarEmpresaController implements Initializable {
 
-    @FXML
-    private TextField correoTextField;
-
-    @FXML
-    private TextField direccionTextField;
-
-    @FXML
-    private TextField especialidadTextFiedl;
-
-    @FXML
-    private TextField horarioTextField;
-
-    @FXML
-    private TextField nombreEmpresaTextField;
-
-    @FXML
-    private TextField nombreTextField;
-
-    @FXML
-    private TextField plazasTextField;
-
-    @FXML
-    private BorderPane root;
-
     private final StringProperty nombreProperty = new SimpleStringProperty();
     private final StringProperty direccionProperty = new SimpleStringProperty();
     private final StringProperty correoProperty = new SimpleStringProperty();
     private final StringProperty horarioProperty = new SimpleStringProperty();
     private final IntegerProperty plazasProperty = new SimpleIntegerProperty();
     private final StringProperty especialidadProperty = new SimpleStringProperty();
+    @FXML
+    private TextField correoTextField;
+    @FXML
+    private TextField direccionTextField;
+    @FXML
+    private TextField especialidadTextFiedl;
+    @FXML
+    private TextField horarioTextField;
+    @FXML
+    private TextField nombreEmpresaTextField;
+    @FXML
+    private TextField nombreTextField;
+    @FXML
+    private TextField plazasTextField;
+    @FXML
+    private BorderPane root;
 
 
     public ModificarEmpresaController() {
@@ -84,7 +77,7 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onSearchAction(ActionEvent event) {
-        String querry = "select nombre,direccion, correo, horario, plazas_disp, especialidad from empresa WHERE nombre = ?";
+        String querry = "SELECT nombre, direccion, correo, horario, plazas_disp, especialidad FROM empresa WHERE nombre = ?";
 
 
         if (nombreProperty.getValue() != null) {
@@ -121,24 +114,39 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onModifyAction(ActionEvent event) {
-//        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ? plazas_disp = ?, especialidad = ? WHERE nombre = ?";
-//
-//        if (nombreProperty.getValue() != null) {
-//            try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
-//
-//                statement.setString(1, nombreProperty.getValue());
-//                statement.setString(2, direccionProperty.get());
-//                statement.setString(3, correoProperty.getValue());
-//                statement.setString(4, horarioProperty.get());
-//                statement.setInt(5, plazasProperty.getValue());  // Ejemplo: plazas disponibles
-//                statement.setString(6, especialidadProperty.getValue());
-//                statement.setString(7, nombreProperty.getValue()); // Nombre usado en el WHERE
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ?, plazas_disp = ?, especialidad = ? WHERE nombre = ?";
 
+        if (nombreProperty.getValue() != null) {
+            try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
+
+                statement.setString(1, nombreProperty.getValue());
+                statement.setString(2, direccionProperty.get());
+                statement.setString(3, correoProperty.getValue());
+                statement.setString(4, horarioProperty.get());
+                statement.setInt(5, plazasProperty.getValue());  // Ejemplo: plazas disponibles
+                statement.setString(6, especialidadProperty.getValue());
+                statement.setString(7, nombreProperty.getValue()); // Nombre usado en el WHERE
+
+                //Ejecuta la consulta
+                statement.executeUpdate();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Midificación Realizada");
+                alert.setHeaderText("Se ha realizado correctamente la modificación de los datos.");
+                alert.showAndWait();
+
+                nombreTextField.setText("");
+                direccionTextField.setText("");
+                correoTextField.setText("");
+                horarioTextField.setText("");
+                plazasTextField.setText("");
+                especialidadTextFiedl.setText("");
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
