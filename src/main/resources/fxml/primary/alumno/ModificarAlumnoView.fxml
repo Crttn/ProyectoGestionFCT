@@ -38,8 +38,8 @@
                 </Label>
                 <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="nombreEmpresaTextField" promptText="ID Alumno" />
-                        <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
+                        <TextField fx:id="dniSearchTextField" promptText="ID Alumno" />
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                     </children>
                 </HBox>
                 <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
@@ -61,18 +61,18 @@
                         <Label text="Nombre:" />
                         <Label text="Correo:" GridPane.rowIndex="2" />
                         <Label text="DNI:" GridPane.rowIndex="3" />
-                        <TextField fx:id="idalumnoTextfield" GridPane.columnIndex="1" />
-                        <TextField fx:id="idempresaTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="idtutordocenteTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="idtutorempresaTextfield" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="nombreTextField" GridPane.columnIndex="1" />
+                        <TextField fx:id="apellidoTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="correoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="dniTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Fecha Nacimiento:" GridPane.columnIndex="2" />
                   <Label text="Telefono:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="Curso:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Label text="Codigo Nuss:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="fechaNacimiento" GridPane.columnIndex="3" />
-                  <TextField fx:id="telefonoTextfield" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="cursoTextfield" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="codigoNussTextfield" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="fechaNacimientoDatePicker" GridPane.columnIndex="3" />
+                  <TextField fx:id="telefonoTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="cursoTextField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <TextField fx:id="codigoNussTextField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

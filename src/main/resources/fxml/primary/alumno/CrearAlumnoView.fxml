@@ -42,12 +42,12 @@
         </rowConstraints>
          <children>
             <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Nombre:" />
-            <TextField fx:id="StudendName" GridPane.columnIndex="1" GridPane.columnSpan="2">
+            <TextField fx:id="nombreTextField" GridPane.columnIndex="1" GridPane.columnSpan="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="StudentSurname" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TextField fx:id="apellidoTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
@@ -59,32 +59,32 @@
             <Label text="Telefono:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Curso:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label text="Codigo NUSS:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TextField fx:id="StudentsEmail" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="correoTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="StudentsDNI" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="dniTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <DatePicker fx:id="StudendsDate" GridPane.columnIndex="4" GridPane.columnSpan="2">
+            <DatePicker fx:id="fechaNacimientoTextField" GridPane.columnIndex="4" GridPane.columnSpan="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </DatePicker>
-            <TextField fx:id="StudentsPhone" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TextField fx:id="telefonoTextField" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="StudentsClass" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="cursoTextField" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="StudentsNUSS" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="nussTextField" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>

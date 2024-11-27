@@ -13,7 +13,7 @@
    <top>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Eliminar Asignación">
+            <Label text="Eliminar Práctica">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -34,7 +34,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="AsignacionTextfield" />
+                  <TextField fx:id="idPracticaTextField" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Eliminar" />
                </children>
             </HBox>

@@ -81,7 +81,6 @@ public class EliminarVisitaController implements Initializable {
                 idVisitaProperty.setValue(0);
             }
         }
-
     }
 
     @FXML

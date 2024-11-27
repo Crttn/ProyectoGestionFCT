@@ -37,8 +37,8 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="nombreEmpresaTextField" promptText="ID Práctica" />
-                  <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Buscar" />
+                  <TextField fx:id="idPracticaTextField" promptText="ID Práctica" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                </children>
             </HBox>
             <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
@@ -64,12 +64,12 @@
                   <Label text="ID_Tutor_Empresa:" GridPane.rowIndex="3" />
                   <Label text="Fecha_Inicio:" GridPane.rowIndex="4" />
                   <Label text="Fecha_Fin:" GridPane.rowIndex="5" />
-                  <TextField fx:id="idalumnoTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
-                  <TextField fx:id="idempresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-                  <TextField fx:id="idtutordocenteTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
-                  <TextField fx:id="idtutorempresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
-                  <TextField fx:id="fechainicioTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-                  <TextField fx:id="fechafinTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+                  <TextField fx:id="idAlumnoTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" />
+                  <TextField fx:id="idEmpresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+                  <TextField fx:id="idTutorDocenteTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+                  <TextField fx:id="idTutorEmpresaTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+                  <TextField fx:id="fechaInicioTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
+                  <TextField fx:id="fechaFinTextfield" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

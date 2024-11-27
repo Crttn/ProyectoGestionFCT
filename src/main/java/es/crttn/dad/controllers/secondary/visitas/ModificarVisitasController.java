@@ -122,7 +122,6 @@ public class ModificarVisitasController implements Initializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     @FXML
