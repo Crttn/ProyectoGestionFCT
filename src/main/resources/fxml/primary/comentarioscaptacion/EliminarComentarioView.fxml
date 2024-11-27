@@ -34,8 +34,8 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="comentarioTextfield" promptText="ID comentario" />
-                  <Button fx:id="deleteButton" defaultButton="true" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Eliminar" />
+                  <TextField fx:id="idComentarioTextfield" promptText="ID comentario" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteButtonAction" text="Eliminar" />
                </children>
             </HBox>
          </children>

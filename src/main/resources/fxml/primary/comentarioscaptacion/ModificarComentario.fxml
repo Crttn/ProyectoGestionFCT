@@ -39,7 +39,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="comentarioTextfield" promptText="ID Comentario" />
+                  <TextField fx:id="idComentarioTextfield" promptText="ID Comentario" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#onSearchAction" text="Buscar" />
                </children>
             </HBox>
@@ -56,8 +56,10 @@
                <children>
                   <Label text="Fecha:" />
                   <Label text="Comentario:" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="comentarioFecha" GridPane.columnIndex="1" />
-                  <TextArea fx:id="comentarioArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="fechaDatePicker" GridPane.columnIndex="1" />
+                  <TextArea fx:id="comentarioTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="ID Empresa: " GridPane.rowIndex="2" />
+                  <TextField fx:id="idEmpresaTextField" maxWidth="180.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
