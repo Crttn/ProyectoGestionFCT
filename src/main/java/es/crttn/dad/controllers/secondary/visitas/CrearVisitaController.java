@@ -5,6 +5,7 @@ import es.crttn.dad.DatabaseManager;
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import java.util.Date;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,9 +18,9 @@ import javafx.util.converter.NumberStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 public class CrearVisitaController implements Initializable {
@@ -42,7 +43,7 @@ public class CrearVisitaController implements Initializable {
     @FXML
     private DatePicker visitaFecha;
 
-    private final ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<Date> fechaProperty = new SimpleObjectProperty<>();
     private final StringProperty observacionesProperty = new SimpleStringProperty();
     private final IntegerProperty idpracticaProperty = new SimpleIntegerProperty();
 
@@ -60,10 +61,23 @@ public class CrearVisitaController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         idpracticaTextfield.textProperty().bindBidirectional(idpracticaProperty, new NumberStringConverter());
-
-
-        visitaFecha.valueProperty().bindBidirectional(fechaProperty);
         observacionesArea.textProperty().bindBidirectional(observacionesProperty);
+
+        visitaFecha.valueProperty().addListener((obs, oldv, newv) -> {
+            if (newv != null) {
+                fechaProperty.set(Date.from(newv.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            } else {
+                fechaProperty.set(null);
+            }
+        });
+
+        fechaProperty.addListener((obs, oldDate, newDate) -> {
+            if (newDate != null) {
+                visitaFecha.setValue(newDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            } else {
+                visitaFecha.setValue(null);
+            }
+        });
 
     }
 
@@ -73,30 +87,37 @@ public class CrearVisitaController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
-
-        String querry = "INSERT INTO visitaseguimiento (id_practica, fecha, observaciones) VALUES (?, ?, ?)";
+        String query = "INSERT INTO visitaseguimiento (id_practica, fecha, observaciones) VALUES (?, ?, ?)";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(querry)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            // Usar los valores obtenidos de las propiedades
+            // Validar datos antes de insertar
+            if (idpracticaProperty.getValue() == null || fechaProperty.getValue() == null || observacionesProperty.getValue() == null) {
+                System.out.println("Error: Todos los campos son obligatorios.");
+                return;
+            }
+
+            // Preparar valores para la consulta
             statement.setInt(1, idpracticaProperty.getValue());
-            statement.setDate(2, Date.valueOf(fechaProperty.getValue()));
-            statement.setString(3,observacionesProperty.getValue());
+            statement.setDate(2, new java.sql.Date(fechaProperty.getValue().getTime())); // Convertir java.util.Date a java.sql.Date
+            statement.setString(3, observacionesProperty.getValue());
 
-
+            // Ejecutar la consulta
             int filasAfectadas = statement.executeUpdate();
             System.out.println("Visita insertada: " + filasAfectadas + " fila(s) afectada(s)");
 
+            // Limpiar los campos de la interfaz
             idpracticaTextfield.setText("");
-            fechaProperty.setValue(LocalDate.parse(""));
+            visitaFecha.setValue(null); // Restablece el DatePicker
             observacionesArea.setText("");
+            fechaProperty.setValue(null); // Restablece fechaProperty
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
 
     @FXML
     void onBackButtonAction(ActionEvent event) {

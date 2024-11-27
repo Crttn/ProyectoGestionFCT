@@ -2,6 +2,8 @@ package es.crttn.dad.controllers.secondary.visitas;
 
 import es.crttn.dad.App;
 import es.crttn.dad.DatabaseManager;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,12 +26,12 @@ import java.util.ResourceBundle;
 public class EliminarVisitaController implements Initializable {
 
     @FXML
-    private TextField idvisitaTextfield;
+    private TextField idVisitaTextField;
 
     @FXML
     private BorderPane root;
 
-    private StringProperty visitaProperty = new SimpleStringProperty();
+    private IntegerProperty idVisitaProperty = new SimpleIntegerProperty();
 
     public EliminarVisitaController() {
         try {
@@ -43,7 +46,7 @@ public class EliminarVisitaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        idvisitaTextfield.textProperty().bindBidirectional(visitaProperty);
+        idVisitaTextField.textProperty().bindBidirectional(idVisitaProperty, new NumberStringConverter());
 
     }
 
@@ -54,10 +57,10 @@ public class EliminarVisitaController implements Initializable {
     @FXML
     void onDeleteAction(ActionEvent event) {
 
-        if (visitaProperty != null) {
+        if (idVisitaProperty != null) {
             Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
             deleteAlert.setTitle("Eliminar Visita");
-            deleteAlert.setHeaderText("¿Estás seguro de que deseas eliminar la visita " + visitaProperty.getValue() +  "?");
+            deleteAlert.setHeaderText("¿Estás seguro de que deseas eliminar la visita " + idVisitaProperty.getValue() +  "?");
             Optional<ButtonType> buttonType = deleteAlert.showAndWait();
 
             if(buttonType.isPresent() && buttonType.get().equals(ButtonType.OK)) {
@@ -67,7 +70,7 @@ public class EliminarVisitaController implements Initializable {
                      PreparedStatement statement = connection.prepareStatement(querry)) {
 
                     // Usar los valores obtenidos de las propiedades
-                    statement.setString(1, visitaProperty.getValue());
+                    statement.setString(1, idVisitaProperty.getValue().toString());
 
                     int filasAfectadas = statement.executeUpdate();
                     System.out.println("Visita eliminada: " + filasAfectadas + " fila(s) afectada(s)");
@@ -75,7 +78,7 @@ public class EliminarVisitaController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                visitaProperty.setValue("");
+                idVisitaProperty.setValue(0);
             }
         }
 

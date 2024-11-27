@@ -59,8 +59,6 @@ public class BuscarAlumnoController implements Initializable {
     @FXML
     private TableColumn<Alumno, Integer> columnaTelefono;
 
-
-
     @FXML
     private BorderPane root;
 

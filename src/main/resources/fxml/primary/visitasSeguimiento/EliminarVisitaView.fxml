@@ -34,7 +34,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" spacing="10.0">
                <children>
-                  <TextField fx:id="idvisitaTextField" promptText="ID visita" />
+                  <TextField fx:id="idVisitaTextField" promptText="ID visita" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#onDeleteAction" text="Eliminar" />
                </children>
             </HBox>
