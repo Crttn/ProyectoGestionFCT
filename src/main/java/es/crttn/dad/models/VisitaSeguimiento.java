@@ -14,13 +14,21 @@ public class VisitaSeguimiento {
     // Atributos como Properties
     private final IntegerProperty idVisita;
     private final IntegerProperty idPractica;
+    private final IntegerProperty idAlumno;
+    private final StringProperty nombreAlumno;
+    private final IntegerProperty idDocente;
+    private final StringProperty nombreDocente;
     private final ObjectProperty<Date> fecha;
     private final StringProperty observaciones;
 
     // Constructor
-    public VisitaSeguimiento(int idVisita, int idPractica, Date fecha, String observaciones) {
+    public VisitaSeguimiento(int idVisita, int idPractica, int idAlumno, String nombreAlumno, int idDocente, String nombreDocente, Date fecha, String observaciones) {
         this.idVisita = new SimpleIntegerProperty(idVisita);
         this.idPractica = new SimpleIntegerProperty(idPractica);
+        this.idAlumno = new SimpleIntegerProperty(idAlumno);
+        this.nombreAlumno = new SimpleStringProperty(nombreAlumno);
+        this.idDocente = new SimpleIntegerProperty(idDocente);
+        this.nombreDocente = new SimpleStringProperty(nombreDocente);
         this.fecha = new SimpleObjectProperty<>(fecha);
         this.observaciones = new SimpleStringProperty(observaciones);
     }
@@ -48,6 +56,25 @@ public class VisitaSeguimiento {
 
     public void setIdPractica(int idPractica) {
         this.idPractica.set(idPractica);
+    }
+
+    public IntegerProperty idAlumnoProperty() {
+        return idAlumno;
+    }
+
+
+    public StringProperty nombreAlumnoProperty() {
+        return nombreAlumno;
+    }
+
+
+    public IntegerProperty idDocenteProperty() {
+        return idDocente;
+    }
+
+
+    public StringProperty nombreDocenteProperty() {
+        return nombreDocente;
     }
 
     public ObjectProperty<Date> fechaProperty() {

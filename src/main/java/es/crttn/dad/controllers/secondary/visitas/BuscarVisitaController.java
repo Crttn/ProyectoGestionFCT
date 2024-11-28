@@ -28,10 +28,13 @@ import java.util.ResourceBundle;
 public class BuscarVisitaController implements Initializable {
 
     @FXML
-    private TableView<VisitaSeguimiento> visitasTableView;
+    private TableColumn<VisitaSeguimiento, Date> fechaColumn;
 
     @FXML
-    private TableColumn<VisitaSeguimiento, Date> fechaColumn;
+    private TableColumn<VisitaSeguimiento, Integer> idAlumnoColumn;
+
+    @FXML
+    private TableColumn<VisitaSeguimiento, Integer> idDocentenColumn;
 
     @FXML
     private TableColumn<VisitaSeguimiento, Integer> idPracticaColumn;
@@ -43,10 +46,19 @@ public class BuscarVisitaController implements Initializable {
     private TextField idVisitaTextField;
 
     @FXML
+    private TableColumn<VisitaSeguimiento, String> nombreAlumnoColumn;
+
+    @FXML
+    private TableColumn<VisitaSeguimiento, String> nombreDocenteColumn;
+
+    @FXML
     private TableColumn<VisitaSeguimiento, String> observacionesColumn;
 
     @FXML
     private BorderPane root;
+
+    @FXML
+    private TableView<?> visitasTableView;
 
     private final IntegerProperty idVisitaProperty = new SimpleIntegerProperty();
     private ObservableList listaVisitas;
@@ -71,6 +83,10 @@ public class BuscarVisitaController implements Initializable {
 
         idVisitaColumn.setCellValueFactory(cellData -> cellData.getValue().idVisitaProperty().asObject());
         idPracticaColumn.setCellValueFactory(cellData -> cellData.getValue().idPracticaProperty().asObject());
+        idAlumnoColumn.setCellValueFactory(cellData -> cellData.getValue().idAlumnoProperty().asObject());
+        nombreAlumnoColumn.setCellValueFactory(cellData -> cellData.getValue().nombreAlumnoProperty());
+        idDocentenColumn.setCellValueFactory(cellData -> cellData.getValue().idDocenteProperty().asObject());
+        nombreDocenteColumn.setCellValueFactory(cellData -> cellData.getValue().nombreDocenteProperty());
         fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
         observacionesColumn.setCellValueFactory(cellData -> cellData.getValue().observacionesProperty());
 
@@ -86,7 +102,19 @@ public class BuscarVisitaController implements Initializable {
     void onSearchAction(ActionEvent event) {
         listaVisitas.clear();
 
-        String querry = "SELECT * FROM visitaseguimiento WHERE id_practica = ?";
+        String querry = "SELECT \n" +
+                "  visitaseguimiento.*, \n" +
+                "  practica.id_practica as idPractica, \n" +
+                "  alumno.id_alumno as idAlumno, \n" +
+                "  alumno.nombre as alumnoNombre, \n" +
+                "  id_tutor_docente as idDocente, \n" +
+                "  nombre as nombreDocente \n" +
+                "FROM \n" +
+                "  visitaseguimiento \n" +
+                "  INNER JOIN practica on practica.id_practica = visitaseguimiento.id_visita \n" +
+                "  INNER JOIN alumno on alumno.id_alumno = practica.id_alumno \n" +
+                "WHERE \n" +
+                "  id_visita = ?";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
@@ -95,7 +123,15 @@ public class BuscarVisitaController implements Initializable {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(resultSet.getInt("id_visita"), resultSet.getInt("id_practica"), resultSet.getDate("fecha"), resultSet.getString("observaciones"));
+                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(
+                            resultSet.getInt("id_visita"),
+                            resultSet.getInt("idPractica"),
+                            resultSet.getInt("idAlumno"),
+                            resultSet.getString("alumnoNombre"),
+                            resultSet.getInt("idDocente"),
+                            resultSet.getString("nombreDocente"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("observaciones"));
                     listaVisitas.add(visitaSeguimiento);
                 }
             }
@@ -110,13 +146,31 @@ public class BuscarVisitaController implements Initializable {
     void onSearchAllAction(ActionEvent event) {
         listaVisitas.clear();
 
-        String querry = "SELECT * FROM visitaseguimiento";
+        String querry = "SELECT \n" +
+                "  visitaseguimiento.*, \n" +
+                "  practica.id_practica as idPractica, \n" +
+                "  alumno.id_alumno as idAlumno, \n" +
+                "  alumno.nombre as alumnoNombre, \n" +
+                "  id_tutor_docente as idDocente, \n" +
+                "  nombre as nombreDocente \n" +
+                "FROM \n" +
+                "  visitaseguimiento \n" +
+                "  INNER JOIN practica on practica.id_practica = visitaseguimiento.id_visita \n" +
+                "  INNER JOIN alumno on alumno.id_alumno = practica.id_alumno";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(resultSet.getInt("id_visita"), resultSet.getInt("id_practica"), resultSet.getDate("fecha"), resultSet.getString("observaciones"));
+                    VisitaSeguimiento visitaSeguimiento = new VisitaSeguimiento(
+                            resultSet.getInt("id_visita"),
+                            resultSet.getInt("idPractica"),
+                            resultSet.getInt("idAlumno"),
+                            resultSet.getString("alumnoNombre"),
+                            resultSet.getInt("idDocente"),
+                            resultSet.getString("nombreDocente"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("observaciones"));
                     listaVisitas.add(visitaSeguimiento);
                 }
             }

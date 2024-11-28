@@ -131,7 +131,7 @@ public class ModificarVisitasController implements Initializable {
     }
 
     @FXML
-    void onBackButtonAction(ActionEvent event) {
+    void onBackAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGvc().getRoot());
     }
 

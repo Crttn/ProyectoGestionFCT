@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -128,11 +129,16 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Menú Anterior">
+            <Button graphicTextGap="6.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackAction" text="Volver Atrás">
                <font>
                   <Font size="14.0" />
                </font>
-            </Button>
+               <graphic>
+                  <FontIcon iconLiteral="bi-arrow-left-circle" iconSize="20" />
+               </graphic>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Button>
          </children>
       </HBox>
    </bottom>

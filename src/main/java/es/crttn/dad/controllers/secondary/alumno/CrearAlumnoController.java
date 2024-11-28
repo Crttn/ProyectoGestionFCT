@@ -125,7 +125,7 @@ public class CrearAlumnoController implements Initializable {
     }
 
     @FXML
-    void onCancelAction(ActionEvent event) {
+    void onBackAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGalc().getRoot());
     }
 
