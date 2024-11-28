@@ -71,10 +71,17 @@ public class ModificarAsignacionController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idPracticaTextField.textProperty().bindBidirectional(practicaProperty, new NumberStringConverter());
+        idPracticaTextField.setText("");
+        idPracticaTextField.setFocusTraversable(false);
+
         idAlumnoTextfield.textProperty().bindBidirectional(alumnoProperty, new NumberStringConverter());
+        idAlumnoTextfield.setText("");
         idEmpresaTextfield.textProperty().bindBidirectional(empresaProperty, new NumberStringConverter());
+        idEmpresaTextfield.setText("");
         idTutorDocenteTextfield.textProperty().bindBidirectional(tutorDocenteProperty, new NumberStringConverter());
+        idTutorDocenteTextfield.setText("");
         idTutorEmpresaTextfield.textProperty().bindBidirectional(tutorEmpresaProperty, new NumberStringConverter());
+        idTutorEmpresaTextfield.setText("");
         fechainicioDatePicker.valueProperty().bindBidirectional(fechaInicioProperty);
         fechafinDatePicker.valueProperty().bindBidirectional(fechaFinProperty);
     }
@@ -99,6 +106,7 @@ public class ModificarAsignacionController implements Initializable {
                     tutorEmpresaProperty.setValue(resultSet.getInt("id_tutor_empresa"));
                     fechaInicioProperty.setValue(LocalDate.parse(resultSet.getString("fecha_inicio")));
                     fechaFinProperty.setValue(LocalDate.parse(resultSet.getString("fecha_fin")));
+
 
 
                 }
