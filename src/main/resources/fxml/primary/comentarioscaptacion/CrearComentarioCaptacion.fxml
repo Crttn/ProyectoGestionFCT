@@ -39,7 +39,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Fecha Actual:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Fecha:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <DatePicker fx:id="fechaTextField" GridPane.columnIndex="1" />
             <TextArea fx:id="comentarioTextArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label text="Comentario:" GridPane.rowIndex="1" />

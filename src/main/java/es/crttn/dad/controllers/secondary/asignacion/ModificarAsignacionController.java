@@ -111,6 +111,12 @@ public class ModificarAsignacionController implements Initializable {
 
     @FXML
     void onAddButtonAction(ActionEvent event) {
+
+        // Validar los campos antes de continuar
+        if (!validarCampos()) {
+            return;
+        }
+
         String querry = "UPDATE practica SET id_alumno = ?, id_empresa = ?, id_tutor_docente = ?, id_tutor_empresa = ?, fecha_inicio = ?, fecha_fin = ?";
 
         if (alumnoProperty.getValue() != null && empresaProperty.getValue() != null && tutorDocenteProperty.getValue() != null &&
@@ -326,7 +332,7 @@ public class ModificarAsignacionController implements Initializable {
     //Verificar si el id docente existe en la base
 
     private boolean existeIdDocenteEnBaseDeDatos(int idDocente) {
-        String query = "SELECT COUNT(*) FROM docente WHERE id_docente = ?";
+        String query = "SELECT COUNT(*) FROM tutordocente WHERE id_docente = ?";
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
@@ -344,7 +350,7 @@ public class ModificarAsignacionController implements Initializable {
     //Verificar si el id tutor existe en la base
 
     private boolean existeIdTutorEmpresaEnBaseDeDatos(int idTutorEmpresa) {
-        String query = "SELECT COUNT(*) FROM tutor_empresa WHERE id_tutor_empresa = ?";
+        String query = "SELECT COUNT(*) FROM tutorempresa WHERE id_tutor_empresa = ?";
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 

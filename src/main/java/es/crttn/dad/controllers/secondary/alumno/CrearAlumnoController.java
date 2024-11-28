@@ -16,9 +16,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -151,11 +149,22 @@ public class CrearAlumnoController implements Initializable {
             return false;
         }
 
-        //DNI
-        if (dniTextField.getText()== null || !dniTextField.getText().matches("\\d{8}[A-Za-z]")) {
+        // DNI
+        if (dniTextField.getText() == null || !dniTextField.getText().matches("\\d{8}[A-Za-z]")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error en DNI");
-            alert.setHeaderText("El DNI debe contener exactamente 8 dígitos y una letra");
+            alert.setHeaderText("El DNI debe contener exactamente 8 dígitos y una letra.");
+            alert.showAndWait();
+            return false;
+        }
+
+        String dniAlumnoStr = dniTextField.getText();
+
+        // Verificamos si el DNI ya existe en la base de datos
+        if (existeDINAlumnoEnBaseDeDatos(Integer.parseInt(dniAlumnoStr))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en DNI alumno");
+            alert.setHeaderText("El DNI ya existe en la base de datos.");
             alert.showAndWait();
             return false;
         }
@@ -196,4 +205,23 @@ public class CrearAlumnoController implements Initializable {
         }
         return true;
     }
+
+    //Verificar si el alumno existe en la base
+
+    private boolean existeDINAlumnoEnBaseDeDatos(int idAlumno) {
+        String query = "SELECT COUNT(*) FROM alumno WHERE dni = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idAlumno);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

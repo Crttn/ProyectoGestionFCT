@@ -13,10 +13,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -89,6 +86,12 @@ public class ModificarComentarioController implements Initializable {
 
     @FXML
     void onApplyAction(ActionEvent event) {
+
+        // Validar los campos antes de continuar
+        if (!validarCampos()) {
+            return;
+        }
+
         String querry = "UPDATE comnetariocaptacion SET fecha = ?, comentario = ?, id_empresa = ?";
 
         if (fechaProperty.getValue() != null && comentarioProperty.getValue() != null && empresaProperty.getValue() != null) {
@@ -121,6 +124,75 @@ public class ModificarComentarioController implements Initializable {
     @FXML
     void onBackAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGcc().getRoot());
+    }
+
+    public boolean validarCampos() {
+
+        //Fecha
+        if (fechaDatePicker.getValue() == null ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha");
+            alert.setHeaderText("La fecha no puede ser nula.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Comentario
+        if (comentarioTextArea.getText() == null ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Comentario");
+            alert.setHeaderText("El comentario no puede ser nulo.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //ID Empresa
+        if (idEmpresaTextField.getText() == null || idEmpresaTextField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Empresa");
+            alert.setHeaderText("El ID Empresa no es incorrecto.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Verificar si la empresa existe en la base de datos
+
+        String idEmpresaStr = idEmpresaTextField.getText();
+        try {
+            int idEmpresa = Integer.parseInt(idEmpresaStr);
+            if (!existeIdEmpresaEnBaseDeDatos(idEmpresa)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Empresa");
+                alert.setHeaderText("El ID Empresa no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Empresa");
+            alert.setHeaderText("El ID Empresa debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    //VERIFICACIONES
+    private boolean existeIdEmpresaEnBaseDeDatos(int idEmpresa) {
+        String query = "SELECT COUNT(*) FROM empresa WHERE id_empresa = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

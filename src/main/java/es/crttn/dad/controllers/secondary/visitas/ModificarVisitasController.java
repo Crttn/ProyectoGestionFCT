@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -95,6 +96,11 @@ public class ModificarVisitasController implements Initializable {
     @FXML
     void onAddButtonAction(ActionEvent event) {
 
+        // Validar los campos antes de continuar
+        if (!validarCampos()) {
+            return;
+        }
+
         String querry = "UPDATE visitaseguimiento SET fecha = ?, observaciones = ? WHERE id_visita = ?";
 
         if (idProperty.getValue() != null) {
@@ -127,5 +133,74 @@ public class ModificarVisitasController implements Initializable {
     @FXML
     void onBackButtonAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGvc().getRoot());
+    }
+
+    public boolean validarCampos() {
+
+        //ID Practica
+        if (idVisitaTextField.getText() == null || idVisitaTextField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Practica");
+            alert.setHeaderText("El ID Practica no es correcto.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Verificar si la empresa existe en la base de datos
+
+        String idPracticaStr = idVisitaTextField.getText();
+        try {
+            int idPractica = Integer.parseInt(idPracticaStr);
+            if (!existeIdPracticaEnBaseDeDatos(idPractica)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Practica");
+                alert.setHeaderText("El ID Practica no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Practica");
+            alert.setHeaderText("El ID Practica debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Fecha
+        if (visitaFecha.getValue() == null ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha");
+            alert.setHeaderText("La fecha no puede ser nula.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Observaciones
+        if (observacionesArea.getText() == null | observacionesArea.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en observaciones");
+            alert.setHeaderText("Observaciones no puede ser nulo.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    //VERIFICACIONES
+    private boolean existeIdPracticaEnBaseDeDatos(int idPractica) {
+        String query = "SELECT COUNT(*) FROM visitaseguimiento WHERE id_practica = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idPractica);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
