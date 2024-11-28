@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -18,9 +19,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -126,5 +125,211 @@ public class CrearAsignacionController implements Initializable {
     @FXML
     void onBackButtonAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGasc().getRoot());
+    }
+
+    //VERIFICACIONES//
+
+    public boolean validarCampos() {
+
+        // ID Alumno
+        if (idAlumnoTextField.getText() == null || idAlumnoTextField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Alumno");
+            alert.setHeaderText("El ID Alumno no debe estar vacío.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Verificar que el ID Alumno existe en la base de datos
+        String idAlumnoStr = idAlumnoTextField.getText();
+        try {
+            int idAlumno = Integer.parseInt(idAlumnoStr);
+            if (!existeIdAlumnoEnBaseDeDatos(idAlumno)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Alumno");
+                alert.setHeaderText("El ID Alumno no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Alumno");
+            alert.setHeaderText("El ID Alumno debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // ID Empresa
+        if (idEmpresaTextField.getText() == null || idEmpresaTextField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Empresa");
+            alert.setHeaderText("El ID Empresa no debe estar vacío.");
+            alert.showAndWait();
+            return false;
+        }
+
+        String idEmpresaStr = idEmpresaTextField.getText();
+        try {
+            int idEmpresa = Integer.parseInt(idEmpresaStr);
+            if (!existeIdEmpresaEnBaseDeDatos(idEmpresa)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Empresa");
+                alert.setHeaderText("El ID Empresa no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Empresa");
+            alert.setHeaderText("El ID Empresa debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // ID Docente
+        if (idDocenteTextField.getText() == null || idDocenteTextField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Docente");
+            alert.setHeaderText("El ID Docente no debe estar vacío.");
+            alert.showAndWait();
+            return false;
+        }
+
+        String idDocenteStr = idDocenteTextField.getText();
+        try {
+            int idDocente = Integer.parseInt(idDocenteStr);
+            if (!existeIdDocenteEnBaseDeDatos(idDocente)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Docente");
+                alert.setHeaderText("El ID Docente no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Docente");
+            alert.setHeaderText("El ID Docente debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // ID Tutor Empresa
+        if (idTutoEmpresaTextFielld.getText() == null || idTutoEmpresaTextFielld.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Tutor Empresa");
+            alert.setHeaderText("El ID Tutor Empresa no debe estar vacío.");
+            alert.showAndWait();
+            return false;
+        }
+
+        String idTutorEmpresaStr = idTutoEmpresaTextFielld.getText();
+        try {
+            int idTutorEmpresa = Integer.parseInt(idTutorEmpresaStr);
+            if (!existeIdTutorEmpresaEnBaseDeDatos(idTutorEmpresa)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Tutor Empresa");
+                alert.setHeaderText("El ID Tutor Empresa no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Tutor Empresa");
+            alert.setHeaderText("El ID Tutor Empresa debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Fecha Inicio
+        if (fechaInicioDatePicker.getValue() == null || fechaInicioDatePicker.getValue().isAfter(java.time.LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha Inicio");
+            alert.setHeaderText("La fecha no debe ser nula ni en el futuro.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Fecha Fin
+        if (fechaFinDatePicker.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha Fin");
+            alert.setHeaderText("La fecha no debe ser nula.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    //Verificar si el alumno existe en la base
+
+    private boolean existeIdAlumnoEnBaseDeDatos(int idAlumno) {
+        String query = "SELECT COUNT(*) FROM alumno WHERE id_alumno = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idAlumno);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Verificar si el ID empresa existe en la base
+
+    private boolean existeIdEmpresaEnBaseDeDatos(int idEmpresa) {
+        String query = "SELECT COUNT(*) FROM empresa WHERE id_empresa = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Verificar si el id docente existe en la base
+
+    private boolean existeIdDocenteEnBaseDeDatos(int idDocente) {
+        String query = "SELECT COUNT(*) FROM docente WHERE id_docente = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idDocente);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Verificar si el id tutor existe en la base
+
+    private boolean existeIdTutorEmpresaEnBaseDeDatos(int idTutorEmpresa) {
+        String query = "SELECT COUNT(*) FROM tutor_empresa WHERE id_tutor_empresa = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idTutorEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

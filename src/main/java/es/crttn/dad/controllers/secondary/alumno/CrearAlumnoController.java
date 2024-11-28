@@ -181,7 +181,7 @@ public class CrearAlumnoController implements Initializable {
         if (nussTextField.getText()== null || !nussTextField.getText().matches("\\d{10}")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error en Codigo Nuss");
-            alert.setHeaderText("El codigo nuss debe contener solo numeros.");
+            alert.setHeaderText("El codigo nuss debe contener solo 10 digitos.");
             alert.showAndWait();
             return false;
         }
