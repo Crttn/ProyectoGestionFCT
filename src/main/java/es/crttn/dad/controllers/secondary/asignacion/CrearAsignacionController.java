@@ -264,6 +264,15 @@ public class CrearAsignacionController implements Initializable {
             return false;
         }
 
+        // Verificar si fecha fin es inferior a fecha inicio
+        if (fechaInicioDatePicker.getValue() != null && fechaFinDatePicker.getValue().isBefore(fechaInicioDatePicker.getValue())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha Fin");
+            alert.setHeaderText("La fecha de fin no puede ser anterior a la fecha de inicio.");
+            alert.showAndWait();
+            return false;
+        }
+
         return true;
     }
 
