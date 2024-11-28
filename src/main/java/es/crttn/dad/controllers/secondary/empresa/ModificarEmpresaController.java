@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ModificarEmpresaController implements Initializable {
@@ -125,6 +126,12 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onModifyAction(ActionEvent event) {
+
+        // Validar los campos antes de continuar
+        if (!validarCampos()) {
+            return;
+        }
+
         String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ?, plazas_disp = ?, especialidad = ?, id_tutor_empresa = ? WHERE nombre = ?";
 
         if (nombreProperty.getValue() != null) {
@@ -165,5 +172,185 @@ public class ModificarEmpresaController implements Initializable {
     @FXML
     void onBackaction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGec().getRoot());
+    }
+
+    public boolean validarCampos() {
+
+        // Validar Nombre de la Empresa
+        if (nombreEmpresaTextField.getText() == null || !nombreEmpresaTextField.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en el Nombre");
+            alert.setHeaderText("El nombre de la empresa no sigue el formato adecuado.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Verificar si el nombre ya existe en la base de datos
+        if (existeNombreEmpresaEnBaseDeDatos(nombreEmpresaTextField.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en el Nombre");
+            alert.setHeaderText("El nombre de la empresa ya está registrado en la base de datos.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Direccion
+        if (direccionTextField.getText() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en la dirección");
+            alert.setHeaderText("La direccion no puede ser nula");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Verificar direccion si ya existe en la base de datos
+        if (existeDireccionEnBaseDatos(direccionTextField.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en la direccion");
+            alert.setHeaderText("La direccion ya se encuentra registrada.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Correo
+        if (correoTextField.getText()== null || !correoTextField.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Correo");
+            alert.setHeaderText("El correo no sigue el formato adecuado.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Verificar si correo ya existe en la base
+        if (existeCorreoEnBaseDatos(correoTextField.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en el correo");
+            alert.setHeaderText("La direccion de correo ya se encuentra registrada.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Horario
+        if (horarioTextField.getText() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en el horario");
+            alert.setHeaderText("El horario no permite nulo.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Plazas Disp
+        if (plazasTextField.getText() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en las plazas");
+            alert.setHeaderText("No se permite nulos.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //ID Tutor
+        if (idTutorTextFIeld.getText() == null || idTutorTextFIeld.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en el ID tutor");
+            alert.setHeaderText("No se permite nulo.");
+            alert.showAndWait();
+            return false;
+        }
+
+        String idTutorEmpresaStr = idTutorTextFIeld.getText();
+        try {
+            int idTutorEmpresa = Integer.parseInt(idTutorEmpresaStr);
+            if (!existeIdTutorEmpresaEnBaseDeDatos(idTutorEmpresa)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Tutor Empresa");
+                alert.setHeaderText("El ID Tutor Empresa no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Tutor Empresa");
+            alert.setHeaderText("El ID Tutor Empresa debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Especialidad
+        if (especialidadTextFiedl.getText() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en la especialidad");
+            alert.setHeaderText("La especialidad no puede ser nula.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true; // Todos los campos son válidos
+
+    }
+
+    //VERIFICACIONES
+
+    private boolean existeNombreEmpresaEnBaseDeDatos(String nombreEmpresa) {
+        String query = "SELECT COUNT(*) FROM empresa WHERE nombre = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, nombreEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Devuelve true si ya existe.
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Si hay un error, considera que no existe.
+    }
+
+    private boolean existeDireccionEnBaseDatos(String direccion) {
+        String query = "SELECT COUNT(*) FROM empresa WHERE direccion = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, direccion);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Devuelve true si ya existe.
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private  boolean existeCorreoEnBaseDatos(String correo) {
+        String query = "SELECT COUNT(*) FROM empresa WHERE correo = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, correo);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Devuelve true si ya existe.
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean existeIdTutorEmpresaEnBaseDeDatos(int idTutorEmpresa) {
+        String query = "SELECT COUNT(*) FROM tutorempresa WHERE id_tutor_empresa = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idTutorEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

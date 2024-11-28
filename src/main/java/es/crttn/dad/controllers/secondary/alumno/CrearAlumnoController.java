@@ -207,7 +207,6 @@ public class CrearAlumnoController implements Initializable {
     }
 
     //Verificar si el alumno existe en la base
-
     private boolean existeDINAlumnoEnBaseDeDatos(int idAlumno) {
         String query = "SELECT COUNT(*) FROM alumno WHERE dni = ?";
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
