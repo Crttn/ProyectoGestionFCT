@@ -80,8 +80,14 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </TextField>
-            <DatePicker fx:id="fechaInicioDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker fx:id="fechaFinDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="fechaInicioDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></DatePicker>
+            <DatePicker fx:id="fechaFinDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin></DatePicker>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

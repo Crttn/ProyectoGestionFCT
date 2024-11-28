@@ -127,7 +127,14 @@ public class BuscarAsignacionController implements Initializable {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Practicas practica = new Practicas(resultSet.getInt("id_practica"), resultSet.getInt("id_alumno"), resultSet.getInt("id_empresa"), resultSet.getInt("id_tutor_docente"), resultSet.getInt("id_tutor_empresa"), resultSet.getDate("fecha_inicio"), resultSet.getDate("fecha_fin"));
+                    Practicas practica = new Practicas(
+                            resultSet.getInt("id_practica"),
+                            resultSet.getInt("id_alumno"),
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getInt("id_tutor_docente"),
+                            resultSet.getInt("id_tutor_empresa"),
+                            resultSet.getDate("fecha_inicio"),
+                            resultSet.getDate("fecha_fin"));
                     listaPracticas.add(practica);
                 }
             }

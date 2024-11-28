@@ -72,6 +72,11 @@ public class CrearAsignacionController implements Initializable {
         idTutoEmpresaTextFielld.textProperty().bindBidirectional(tutorEmpresaProperty, new NumberStringConverter());
         fechaInicioDatePicker.valueProperty().bindBidirectional(fechaInicioProperty);
         fechaFinDatePicker.valueProperty().bindBidirectional(fechaFinProperty);
+
+        idAlumnoTextField.setText("");
+        idEmpresaTextField.setText("");
+        idDocenteTextField.setText("");
+        idTutoEmpresaTextFielld.setText("");
     }
 
     public BorderPane getRoot() {
@@ -105,7 +110,7 @@ public class CrearAsignacionController implements Initializable {
                 idAlumnoTextField.setText("");
                 idEmpresaTextField.setText("");
                 idDocenteTextField.setText("");
-                tutorEmpresaProperty.setValue(null);
+                idTutoEmpresaTextFielld.setText("");
                 fechaInicioDatePicker.setValue(null);
                 fechaFinProperty.setValue(null);
 

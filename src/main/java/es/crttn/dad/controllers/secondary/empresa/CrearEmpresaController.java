@@ -44,7 +44,7 @@ public class CrearEmpresaController implements Initializable {
     private TextField nombreEmpresa;
 
     @FXML
-    private TextField nombreTutorEmpresa;
+    private TextField idTutorEmpresa;
 
     @FXML
     private TextField plazasDisponibles;
@@ -81,9 +81,10 @@ public class CrearEmpresaController implements Initializable {
         correoEmpresa.textProperty().bindBidirectional(correoProperty);
         horarioEmpresa.textProperty().bindBidirectional(horarioProperty);
         plazasDisponibles.textProperty().bindBidirectional(plazasProperty);
-        nombreTutorEmpresa.textProperty().bindBidirectional(nombreTutorProperty, new NumberStringConverter());
+        idTutorEmpresa.textProperty().bindBidirectional(nombreTutorProperty, new NumberStringConverter());
         especialidadEmpresa.textProperty().bindBidirectional(especialidadProperty);
 
+        idTutorEmpresa.setText("");
     }
 
     public BorderPane getRoot() {
@@ -115,7 +116,7 @@ public class CrearEmpresaController implements Initializable {
             correoEmpresa.setText("");
             horarioEmpresa.setText("");
             plazasDisponibles.setText("");
-            nombreTutorEmpresa.setText("");
+            idTutorEmpresa.setText("");
             especialidadEmpresa.setText("");
 
         } catch (Exception e) {
