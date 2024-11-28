@@ -24,29 +24,40 @@ import java.util.ResourceBundle;
 
 public class ModificarEmpresaController implements Initializable {
 
+    @FXML
+    private TextField correoTextField;
+
+    @FXML
+    private TextField direccionTextField;
+
+    @FXML
+    private TextField especialidadTextFiedl;
+
+    @FXML
+    private TextField horarioTextField;
+
+    @FXML
+    private TextField nombreEmpresaTextField;
+
+    @FXML
+    private TextField nombreTextField;
+
+    @FXML
+    private TextField plazasTextField;
+
+    @FXML
+    private TextField idTutorTextFIeld;
+
+    @FXML
+    private BorderPane root;
+
     private final StringProperty nombreProperty = new SimpleStringProperty();
     private final StringProperty direccionProperty = new SimpleStringProperty();
     private final StringProperty correoProperty = new SimpleStringProperty();
     private final StringProperty horarioProperty = new SimpleStringProperty();
     private final IntegerProperty plazasProperty = new SimpleIntegerProperty();
+    private final IntegerProperty idTutorProperty = new SimpleIntegerProperty();
     private final StringProperty especialidadProperty = new SimpleStringProperty();
-    @FXML
-    private TextField correoTextField;
-    @FXML
-    private TextField direccionTextField;
-    @FXML
-    private TextField especialidadTextFiedl;
-    @FXML
-    private TextField horarioTextField;
-    @FXML
-    private TextField nombreEmpresaTextField;
-    @FXML
-    private TextField nombreTextField;
-    @FXML
-    private TextField plazasTextField;
-    @FXML
-    private BorderPane root;
-
 
     public ModificarEmpresaController() {
         try {
@@ -66,9 +77,8 @@ public class ModificarEmpresaController implements Initializable {
         correoTextField.textProperty().bindBidirectional(correoProperty);
         horarioTextField.textProperty().bindBidirectional(horarioProperty);
         plazasTextField.textProperty().bindBidirectional(plazasProperty, new NumberStringConverter());
+        idTutorTextFIeld.textProperty().bindBidirectional(idTutorProperty, new NumberStringConverter());
         especialidadTextFiedl.textProperty().bindBidirectional(especialidadProperty);
-
-
     }
 
     public BorderPane getRoot() {
@@ -77,7 +87,7 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onSearchAction(ActionEvent event) {
-        String querry = "SELECT nombre, direccion, correo, horario, plazas_disp, especialidad FROM empresa WHERE nombre = ?";
+        String querry = "SELECT nombre, direccion, correo, horario, plazas_disp, especialidad, id_tutor_empresa FROM empresa WHERE nombre = ?";
 
 
         if (nombreProperty.getValue() != null) {
@@ -94,7 +104,7 @@ public class ModificarEmpresaController implements Initializable {
                         horarioProperty.setValue(resultSet.getString("horario"));
                         plazasProperty.setValue(resultSet.getInt("plazas_disp"));
                         especialidadProperty.setValue(resultSet.getString("especialidad"));
-
+                        idTutorProperty.setValue(resultSet.getInt("id_tutor_empresa"));
 
                     }
                 }
@@ -105,6 +115,7 @@ public class ModificarEmpresaController implements Initializable {
                 horarioTextField.setText(horarioProperty.getValue());
                 plazasTextField.setText(plazasProperty.getValue().toString());
                 especialidadTextFiedl.setText(especialidadProperty.getValue());
+                idTutorTextFIeld.setText(idTutorProperty.getValue().toString());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -114,7 +125,7 @@ public class ModificarEmpresaController implements Initializable {
 
     @FXML
     void onModifyAction(ActionEvent event) {
-        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ?, plazas_disp = ?, especialidad = ? WHERE nombre = ?";
+        String querry = "UPDATE empresa SET nombre = ?, direccion = ?, correo = ?, horario = ?, plazas_disp = ?, especialidad = ?, id_tutor_empresa = ? WHERE nombre = ?";
 
         if (nombreProperty.getValue() != null) {
             try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
@@ -125,7 +136,8 @@ public class ModificarEmpresaController implements Initializable {
                 statement.setString(4, horarioProperty.get());
                 statement.setInt(5, plazasProperty.getValue());  // Ejemplo: plazas disponibles
                 statement.setString(6, especialidadProperty.getValue());
-                statement.setString(7, nombreProperty.getValue()); // Nombre usado en el WHERE
+                statement.setInt(7, idTutorProperty.getValue());
+                statement.setString(8, nombreProperty.getValue()); // Nombre usado en el WHERE
 
                 //Ejecuta la consulta
                 statement.executeUpdate();
@@ -141,6 +153,7 @@ public class ModificarEmpresaController implements Initializable {
                 horarioTextField.setText("");
                 plazasTextField.setText("");
                 especialidadTextFiedl.setText("");
+                idTutorTextFIeld.setText("");
 
 
             } catch (Exception e) {

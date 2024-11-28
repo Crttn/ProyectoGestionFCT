@@ -24,9 +24,6 @@ import java.util.ResourceBundle;
 public class BuscarEmpresaController implements Initializable {
 
     @FXML
-    private Button backButton;
-
-    @FXML
     private TableView<Empresa> empresasTableView;
 
     @FXML
@@ -54,7 +51,7 @@ public class BuscarEmpresaController implements Initializable {
     private TableColumn<Empresa, Integer> columnaplazas;
 
     @FXML
-    private Button buscarButton;
+    private TableColumn<Empresa, String> nombreTutorColumn;
 
     @FXML
     private TextField nombreTextField;
@@ -90,6 +87,7 @@ public class BuscarEmpresaController implements Initializable {
         columnaplazas.setCellValueFactory(cellData -> cellData.getValue().plazas_dispProperty().asObject());
         columnaespecialidad.setCellValueFactory(cellData -> cellData.getValue().especialidadProperty());
         columnaidtutorempresa.setCellValueFactory(cellData -> cellData.getValue().id_tutor_empresaProperty().asObject());
+        nombreTutorColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_tutor_empresaProperty());
 
         listEmpresas = FXCollections.observableArrayList();
         empresasTableView.setItems(listEmpresas);
@@ -103,7 +101,7 @@ public class BuscarEmpresaController implements Initializable {
     @FXML
     void onBuscarAlumnoAction(ActionEvent event) {
 
-        String querry = "SELECT * FROM empresa WHERE nombre = ?";
+        String querry = "SELECT *, tutorempresa.nombre FROM `empresa` INNER JOIN tutorempresa on empresa.id_tutor_empresa = tutorempresa.id_tutor_empresa WHERE empresa.nombre = ?";
 
         listEmpresas.clear();
 
@@ -125,7 +123,8 @@ public class BuscarEmpresaController implements Initializable {
                             resultSet.getString("horario"),
                             resultSet.getInt("plazas_disp"),
                             resultSet.getString("especialidad"),
-                            resultSet.getInt("id_tutor_empresa")
+                            resultSet.getInt("id_tutor_empresa"),
+                            resultSet.getString("tutorempresa.nombre")
                     );
                     listEmpresas.add(empresa);
                 }
@@ -145,8 +144,7 @@ public class BuscarEmpresaController implements Initializable {
 
     @FXML
     void onSearchAllAction(ActionEvent event) {
-
-        String querry = "SELECT * FROM empresa";
+        String querry = "SELECT *, tutorempresa.nombre FROM empresa INNER JOIN tutorempresa on empresa.id_tutor_empresa = tutorempresa.id_tutor_empresa";
 
         listEmpresas.clear();
 
@@ -164,7 +162,8 @@ public class BuscarEmpresaController implements Initializable {
                             resultSet.getString("horario"),
                             resultSet.getInt("plazas_disp"),
                             resultSet.getString("especialidad"),
-                            resultSet.getInt("id_tutor_empresa")
+                            resultSet.getInt("id_tutor_empresa"),
+                            resultSet.getString("tutorempresa.nombre")
                     );
                     listEmpresas.add(empresa);
                 }

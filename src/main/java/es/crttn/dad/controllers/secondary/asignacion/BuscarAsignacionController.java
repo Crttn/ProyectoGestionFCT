@@ -52,6 +52,18 @@ public class BuscarAsignacionController implements Initializable {
     private TableColumn<Practicas, Integer> idTutorEmpresaColumn;
 
     @FXML
+    private TableColumn<Practicas, String> nombreAlumnoColumn;
+
+    @FXML
+    private TableColumn<Practicas, String> nombreDocenteColumn;
+
+    @FXML
+    private TableColumn<Practicas, String> nombreEmpresaColumn;
+
+    @FXML
+    private TableColumn<Practicas, String> nombreTutorEmpresaColumn;
+
+    @FXML
     private TextField idcomentariotextfield;
 
     @FXML
@@ -80,9 +92,13 @@ public class BuscarAsignacionController implements Initializable {
 
         idPracticaColumn.setCellValueFactory(cellData -> cellData.getValue().id_practicaProperty().asObject());
         idAlumnoColumn.setCellValueFactory(cellData -> cellData.getValue().id_alumnoProperty().asObject());
+        nombreAlumnoColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_alumno());
         idEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().id_empresaProperty().asObject());
+        nombreEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_empresaProperty());
         idTutorDocenteColumn.setCellValueFactory(cellData -> cellData.getValue().id_tutor_docenteProperty().asObject());
+        nombreDocenteColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_tutor_docenteProperty());
         idTutorEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().id_tutor_empresaProperty().asObject());
+        nombreTutorEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_tutor_empresaProperty());
         fechaInicioColumn.setCellValueFactory(cellData -> cellData.getValue().fecha_inicioProperty());
         fechaFinColumn.setCellValueFactory(cellData -> cellData.getValue().fecha_finProperty());
 
@@ -107,7 +123,18 @@ public class BuscarAsignacionController implements Initializable {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Practicas practica = new Practicas(resultSet.getInt("id_practica"), resultSet.getInt("id_alumno"), resultSet.getInt("id_empresa"), resultSet.getInt("id_tutor_docente"), resultSet.getInt("id_tutor_empresa"), resultSet.getDate("fecha_inicio"), resultSet.getDate("fecha_fin"));
+                    Practicas practica = new Practicas(
+                            resultSet.getInt("id_practica"),
+                            resultSet.getInt("id_alumno"),
+                            resultSet.getString("nombre_alumno"),
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getString("nombre_alumno"),
+                            resultSet.getInt("id_tutor_docente"),
+                            resultSet.getString("nombre_alumno"),
+                            resultSet.getInt("id_tutor_empresa"),
+                            resultSet.getString("nombre_alumno"),
+                            resultSet.getDate("fecha_inicio"),
+                            resultSet.getDate("fecha_fin"));
                     listaPracticas.add(practica);
                 }
             }
@@ -121,7 +148,11 @@ public class BuscarAsignacionController implements Initializable {
     void onSearchAllAction(ActionEvent event) {
         listaPracticas.clear();
 
-        String querry = "SELECT * FROM practica";
+        String querry = "SELECT *, alumno.nombre, empresa.nombre, tutordocente.nombre, tutorempresa.nombre FROM practica \n" +
+                "\tINNER JOIN alumno on practica.id_alumno = alumno.id_alumno\n" +
+                "    INNER JOIN empresa on practica.id_empresa = empresa.id_empresa\n" +
+                "    INNER JOIN tutordocente on practica.id_tutor_docente = tutordocente.id_tutor_docente\n" +
+                "    INNER JOIN tutorempresa on practica.id_tutor_empresa = tutorempresa.id_tutor_empresa";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
@@ -130,9 +161,13 @@ public class BuscarAsignacionController implements Initializable {
                     Practicas practica = new Practicas(
                             resultSet.getInt("id_practica"),
                             resultSet.getInt("id_alumno"),
+                            resultSet.getString("alumno.nombre"),
                             resultSet.getInt("id_empresa"),
+                            resultSet.getString("empresa.nombre"),
                             resultSet.getInt("id_tutor_docente"),
+                            resultSet.getString("tutordocente.nombre"),
                             resultSet.getInt("id_tutor_empresa"),
+                            resultSet.getString("tutorempresa.nombre"),
                             resultSet.getDate("fecha_inicio"),
                             resultSet.getDate("fecha_fin"));
                     listaPracticas.add(practica);

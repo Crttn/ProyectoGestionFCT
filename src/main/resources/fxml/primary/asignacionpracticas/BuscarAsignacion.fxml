@@ -49,11 +49,15 @@
     <center>
         <TableView fx:id="asignacionTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="idPracticaColumn" prefWidth="75.0" text="ID_Práctica" />
-                <TableColumn fx:id="idAlumnoColumn" prefWidth="75.0" text="ID_Alumno" />
-                <TableColumn fx:id="idEmpresaColumn" prefWidth="75.0" text="ID_Empresa" />
-                <TableColumn fx:id="idTutorDocenteColumn" prefWidth="75.0" text="ID_Tutor_Docente" />
-            <TableColumn fx:id="idTutorEmpresaColumn" prefWidth="75.0" text="ID_Tutor_Empresa" />
+                <TableColumn fx:id="idPracticaColumn" prefWidth="75.0" text="ID Práctica" />
+                <TableColumn fx:id="idAlumnoColumn" prefWidth="75.0" text="ID Alumno" />
+            <TableColumn fx:id="nombreAlumnoColumn" prefWidth="75.0" text="Nombre Alumno" />
+                <TableColumn fx:id="idEmpresaColumn" prefWidth="75.0" text="ID Empresa" />
+            <TableColumn fx:id="nombreEmpresaColumn" prefWidth="75.0" text="Nombre Empresa" />
+                <TableColumn fx:id="idTutorDocenteColumn" prefWidth="75.0" text="ID Tutor Docente" />
+            <TableColumn fx:id="nombreDocenteColumn" prefWidth="75.0" text="Nombre Tutor Docente" />
+            <TableColumn fx:id="idTutorEmpresaColumn" prefWidth="75.0" text="ID Tutor Empresa" />
+            <TableColumn fx:id="nombreTutorEmpresaColumn" prefWidth="75.0" text="Nombre Tutor Empresa" />
             <TableColumn fx:id="fechaInicioColumn" prefWidth="75.0" text="Fecha_Inicio" />
             <TableColumn fx:id="fechaFinColumn" prefWidth="75.0" text="Fecha_Fin" />
             </columns>

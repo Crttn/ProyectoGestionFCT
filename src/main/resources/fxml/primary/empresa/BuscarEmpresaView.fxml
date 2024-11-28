@@ -49,14 +49,15 @@
     <center>
         <TableView fx:id="empresasTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="columnaidempresa" prefWidth="75.0" text="ID_Empresa" />
+                <TableColumn fx:id="columnaidempresa" prefWidth="75.0" text="ID Empresa" />
                 <TableColumn fx:id="columnanombre" prefWidth="75.0" text="Nombre" />
                 <TableColumn fx:id="columnadireccion" prefWidth="75.0" text="Dirección" />
                 <TableColumn fx:id="columnacorreo" prefWidth="75.0" text="Correo" />
             <TableColumn fx:id="columnahorario" prefWidth="75.0" text="Horario" />
-            <TableColumn fx:id="columnaplazas" prefWidth="75.0" text="Plazas_disp" />
+            <TableColumn fx:id="columnaplazas" prefWidth="75.0" text="Plazas Disponibles" />
             <TableColumn fx:id="columnaespecialidad" prefWidth="75.0" text="Especialidad" />
-            <TableColumn fx:id="columnaidtutorempresa" prefWidth="75.0" text="Id_Tutor_Empresa" />
+            <TableColumn fx:id="columnaidtutorempresa" prefWidth="75.0" text="ID Tutor Empresa" />
+            <TableColumn fx:id="nombreTutorColumn" prefWidth="75.0" text="Nombre Tutor" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

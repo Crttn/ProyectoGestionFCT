@@ -70,6 +70,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label prefWidth="68.0" text="Nombre: " />
@@ -77,13 +78,15 @@
             <Label text="Correo: " GridPane.rowIndex="2" />
             <Label text="Horario: " GridPane.rowIndex="3" />
             <Label text="Plazas Disponibles: " GridPane.rowIndex="4" />
-            <Label text="Especialidad: " GridPane.rowIndex="5" />
+            <Label text="Especialidad: " GridPane.rowIndex="6" />
             <TextField fx:id="nombreTextField" GridPane.columnIndex="1" />
             <TextField fx:id="direccionTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="correoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="horarioTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="plazasTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="especialidadTextFiedl" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="plazasTextField" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="ID Tutor: " GridPane.rowIndex="5" />
+            <TextField fx:id="idTutorTextFIeld" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="especialidadTextFiedl" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </center>

@@ -16,9 +16,10 @@ public class Empresa {
     private final IntegerProperty plazas_disp;
     private final StringProperty especialidad;
     private final IntegerProperty id_tutor_empresa;
+    private final StringProperty nombre_tutor_empresa;
 
     // Constructor
-    public Empresa(int id_empresa, String nombre, String direccion, String correo, String horario, int plazas_disp, String especialidad, int id_tutor_empresa) {
+    public Empresa(int id_empresa, String nombre, String direccion, String correo, String horario, int plazas_disp, String especialidad, int id_tutor_empresa, String nombre_tutor_empresa) {
         this.id_empresa = new SimpleIntegerProperty(id_empresa);
         this.nombre = new SimpleStringProperty(nombre);
         this.direccion = new SimpleStringProperty(direccion);
@@ -27,6 +28,7 @@ public class Empresa {
         this.plazas_disp = new SimpleIntegerProperty(plazas_disp);
         this.especialidad = new SimpleStringProperty(especialidad);
         this.id_tutor_empresa = new SimpleIntegerProperty(id_tutor_empresa);
+        this.nombre_tutor_empresa = new SimpleStringProperty(nombre_tutor_empresa);
     }
 
     // Getters y Setters para las Properties
@@ -125,4 +127,15 @@ public class Empresa {
     public void setId_tutor_empresa(int id_tutor_empresa) {
         this.id_tutor_empresa.set(id_tutor_empresa);
     }
+
+    public StringProperty nombre_tutor_empresaProperty() {
+        return nombre_tutor_empresa;
+    }
+    public String getNombre_tutor_empresa() {
+        return nombre_tutor_empresa.get();
+    }
+    public void setNombre_tutor_empresa(String nombre_tutor_empresa) {
+        this.nombre_tutor_empresa.set(nombre_tutor_empresa);
+    }
+
 }

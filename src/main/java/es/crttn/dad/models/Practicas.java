@@ -1,9 +1,7 @@
 package es.crttn.dad.models;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import javafx.beans.property.*;
 
 import java.util.Date;
 
@@ -12,19 +10,27 @@ public class Practicas {
     // Attributes as Properties
     private final IntegerProperty id_practica;
     private final IntegerProperty id_alumno;
+    private final StringProperty nombre_alumno;
     private final IntegerProperty id_empresa;
+    private final StringProperty nombre_empresa;
     private final IntegerProperty id_tutor_empresa;
+    private final StringProperty nombre_tutor_docente;
     private final IntegerProperty id_tutor_docente;
+    private final StringProperty nombre_tutor_empresa;
     private final ObjectProperty<Date> fecha_inicio;
     private final ObjectProperty<Date> fecha_fin;
 
     // Constructor
-    public Practicas(int id_practica, int id_alumno, int id_empresa, int id_tutor_empresa, int id_tutor_docente, Date fecha_inicio, Date fecha_fin) {
+    public Practicas(int id_practica, int id_alumno, String nombre_alumno, int id_empresa, String nombre_empresa, int id_tutor_empresa, String nombre_tutor_empresa, int id_tutor_docente, String nombre_tutor_docente, Date fecha_inicio, Date fecha_fin) {
         this.id_practica = new SimpleIntegerProperty(id_practica);
         this.id_alumno = new SimpleIntegerProperty(id_alumno);
+        this.nombre_alumno = new SimpleStringProperty(nombre_alumno);
         this.id_empresa = new SimpleIntegerProperty(id_empresa);
+        this.nombre_empresa = new SimpleStringProperty(nombre_empresa);
         this.id_tutor_empresa = new SimpleIntegerProperty(id_tutor_empresa);
+        this.nombre_tutor_empresa = new SimpleStringProperty(nombre_tutor_empresa);
         this.id_tutor_docente = new SimpleIntegerProperty(id_tutor_docente);
+        this.nombre_tutor_docente = new SimpleStringProperty(nombre_tutor_docente);
         this.fecha_inicio = new SimpleObjectProperty<>(fecha_inicio);
         this.fecha_fin = new SimpleObjectProperty<>(fecha_fin);
     }
@@ -54,6 +60,18 @@ public class Practicas {
         this.id_alumno.set(id_alumno);
     }
 
+    public StringProperty nombre_alumnoProperty() {
+        return nombre_alumno;
+    }
+
+    public String getNombre_alumno() {
+        return nombre_alumno.get();
+    }
+
+    public void setNombre_alumno(String nombre_alumno) {
+        this.nombre_alumno.set(nombre_alumno);
+    }
+
     public IntegerProperty id_empresaProperty() {
         return id_empresa;
     }
@@ -64,6 +82,22 @@ public class Practicas {
 
     public void setId_empresa(int id_empresa) {
         this.id_empresa.set(id_empresa);
+    }
+
+    public StringProperty nombre_empresaProperty() {
+        return nombre_empresa;
+    }
+
+    public String getNombre_empresa() {
+        return nombre_empresa.get();
+    }
+
+    public String getNombre_tutor_docente() {
+        return nombre_tutor_docente.get();
+    }
+
+    public StringProperty nombre_tutor_docenteProperty() {
+        return nombre_tutor_docente;
     }
 
     public IntegerProperty id_tutor_empresaProperty() {
@@ -77,6 +111,20 @@ public class Practicas {
     public void setId_tutor_empresa(int id_tutor_empresa) {
         this.id_tutor_empresa.set(id_tutor_empresa);
     }
+
+    public String getNombre_tutor_empresa() {
+        return nombre_tutor_empresa.get();
+    }
+
+    public StringProperty nombre_tutor_empresaProperty() {
+        return nombre_tutor_empresa;
+    }
+
+    public StringProperty nombre_alumno() {
+        return nombre_alumno;
+    }
+
+
 
     public IntegerProperty id_tutor_docenteProperty() {
         return id_tutor_docente;
