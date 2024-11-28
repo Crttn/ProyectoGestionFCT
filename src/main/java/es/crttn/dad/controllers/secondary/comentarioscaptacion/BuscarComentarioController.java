@@ -65,6 +65,8 @@ public class BuscarComentarioController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         idcomentariotextfield.textProperty().bindBidirectional(idComentraioProperty, new NumberStringConverter());
+        idcomentariotextfield.setText("");
+        idcomentariotextfield.setFocusTraversable(false);
 
         idComentarioColumn.setCellValueFactory(cellData -> cellData.getValue().idComentarioProperty().asObject());
         idEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().idEmpresaProperty().asObject());

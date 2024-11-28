@@ -79,6 +79,8 @@ public class BuscarEmpresaController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         nombreTextField.textProperty().bindBidirectional(nombreProperty);
+        nombreTextField.setText("");
+        nombreTextField.setFocusTraversable(false);
 
         columnaidempresa.setCellValueFactory(cellData -> cellData.getValue().id_empresaProperty().asObject());
         columnanombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());

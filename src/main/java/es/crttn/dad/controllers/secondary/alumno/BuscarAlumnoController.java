@@ -78,6 +78,9 @@ public class BuscarAlumnoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dniAlumnoTexfield.textProperty().bindBidirectional(dniProperty);
+        //Elimina el prompText y quita el focus del textField
+        dniAlumnoTexfield.setText("");
+        dniAlumnoTexfield.setFocusTraversable(false);
 
         columnaId.setCellValueFactory(cellData -> cellData.getValue().idAlumnoProperty().asObject());
         columnaNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());

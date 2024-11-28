@@ -105,7 +105,7 @@ public class CrearAsignacionController implements Initializable {
                 idAlumnoTextField.setText("");
                 idEmpresaTextField.setText("");
                 idDocenteTextField.setText("");
-                idEmpresaTextField.setText("");
+                tutorEmpresaProperty.setValue(null);
                 fechaInicioDatePicker.setValue(null);
                 fechaFinProperty.setValue(null);
 

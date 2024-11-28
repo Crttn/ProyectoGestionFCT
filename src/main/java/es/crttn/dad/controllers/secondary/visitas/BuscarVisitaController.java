@@ -66,6 +66,8 @@ public class BuscarVisitaController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         idVisitaTextField.textProperty().bindBidirectional(idVisitaProperty, new NumberStringConverter());
+        idVisitaTextField.setText("");
+        idVisitaTextField.setFocusTraversable(false);
 
         idVisitaColumn.setCellValueFactory(cellData -> cellData.getValue().idVisitaProperty().asObject());
         idPracticaColumn.setCellValueFactory(cellData -> cellData.getValue().idPracticaProperty().asObject());
@@ -84,7 +86,7 @@ public class BuscarVisitaController implements Initializable {
     void onSearchAction(ActionEvent event) {
         listaVisitas.clear();
 
-        String querry = "SELECT * FROM visitaseguimiento WHERE id_visita = ?";
+        String querry = "SELECT * FROM visitaseguimiento WHERE id_practica = ?";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 

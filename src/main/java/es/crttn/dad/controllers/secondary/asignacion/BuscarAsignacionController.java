@@ -75,6 +75,8 @@ public class BuscarAsignacionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         idcomentariotextfield.textProperty().bindBidirectional(idPracticaProperty, new NumberStringConverter());
+        idcomentariotextfield.setText("");
+        idcomentariotextfield.setFocusTraversable(false);
 
         idPracticaColumn.setCellValueFactory(cellData -> cellData.getValue().id_practicaProperty().asObject());
         idAlumnoColumn.setCellValueFactory(cellData -> cellData.getValue().id_alumnoProperty().asObject());
