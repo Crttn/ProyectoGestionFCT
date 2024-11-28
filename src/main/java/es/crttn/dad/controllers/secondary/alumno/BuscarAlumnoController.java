@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -77,6 +78,7 @@ public class BuscarAlumnoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         dniAlumnoTexfield.textProperty().bindBidirectional(dniProperty);
         //Elimina el prompText y quita el focus del textField
         dniAlumnoTexfield.setText("");

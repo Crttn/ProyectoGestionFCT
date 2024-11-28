@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.SubScene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -87,6 +88,12 @@ public class CrearAlumnoController implements Initializable {
 
     @FXML
     void onAddAction(ActionEvent event) {
+
+        // Validar los campos antes de continuar
+        if (!validarCampos()) {
+            return;
+        }
+
         String querry = "INSERT INTO alumno (nombre, apellido, dni, correo, fecha_nacimiento, telefono, codigo_nuss, id_curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
@@ -122,5 +129,71 @@ public class CrearAlumnoController implements Initializable {
     @FXML
     void onCancelAction(ActionEvent event) {
         App.getRootController().getRoot().setCenter(App.getRootController().getGestionMainController().getGalc().getRoot());
+    }
+
+    public boolean validarCampos() {
+
+        //Nombre
+        if (nombreTextField.getText() == null || !nombreTextField.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Nombre");
+            alert.setHeaderText("El Nombre debe contener solo letras");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Apellido
+        if (apellidoTextField.getText() == null || !apellidoTextField.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Apellido");
+            alert.setHeaderText("El Apellido debe contener solo letras");
+            alert.showAndWait();
+            return false;
+        }
+
+        //DNI
+        if (dniTextField.getText()== null || !dniTextField.getText().matches("\\d{8}[A-Za-z]")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en DNI");
+            alert.setHeaderText("El DNI debe contener exactamente 8 dígitos y una letra");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Correo
+        if (correoTextField.getText()== null || !correoTextField.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Correo");
+            alert.setHeaderText("El correo no sigue el formato adecuado.");
+            alert.showAndWait();
+            return false;
+        }
+        //Fecha Nac
+        if (fechaNacimientoTextField.getValue()== null || fechaNacimientoTextField.getValue().isAfter(java.time.LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Fecha Nacimiento");
+            alert.setHeaderText("La fecha de nacimiento no debe ser nula ni estar en el futuro.");
+            alert.showAndWait();
+            return false;
+        }
+
+        //Nuss
+        if (nussTextField.getText()== null || !nussTextField.getText().matches("\\d{10}")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Codigo Nuss");
+            alert.setHeaderText("El codigo nuss debe contener solo numeros.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Curso: obligatorio, solo números
+        if (cursoTextField.getText() == null || !cursoTextField.getText().matches("\\d+")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en Curso");
+            alert.setHeaderText("El Curso debe ser numerico.");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 }

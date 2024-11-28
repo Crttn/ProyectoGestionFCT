@@ -26,7 +26,7 @@
             <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="181.0" text="Ingrese el ID de la Visita a Buscar:" />
-                  <TextField fx:id="idVisitaTextField" promptText="ID Visita" />
+                  <TextField fx:id="idVisitaTextField" onAction="#onSearchButtonAction" promptText="ID Visita" />
                   <Button fx:id="findButton" defaultButton="true" mnemonicParsing="false" onAction="#onSearchButtonAction" text="Buscar" />
                </children>
                <VBox.margin>
