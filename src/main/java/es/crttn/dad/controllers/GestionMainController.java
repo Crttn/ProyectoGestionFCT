@@ -2,6 +2,7 @@ package es.crttn.dad.controllers;
 
 import es.crttn.dad.App;
 import es.crttn.dad.controllers.primary.*;
+import es.crttn.dad.controllers.secondary.GestionTutoresController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ public class GestionMainController implements Initializable {
     private GestionVisitasController gvc = new GestionVisitasController();
     private  GestionAsignacionesController gasc = new GestionAsignacionesController();
     private GestionComentariosController gcc = new GestionComentariosController();
+    private GestionTutoresController gtc = new GestionTutoresController();
 
     @FXML
     private BorderPane root;
@@ -70,6 +72,11 @@ public class GestionMainController implements Initializable {
         App.getRootController().getRoot().setCenter(gcc.getRoot());
     }
 
+    @FXML
+    void onGestionTutoresAction(ActionEvent event) {
+        App.getRootController().getRoot().setCenter(gtc.getRoot());
+    }
+
     public GestionEmpresasController getGec() {
         return gec;
     }
@@ -88,5 +95,9 @@ public class GestionMainController implements Initializable {
 
     public GestionVisitasController getGvc() {
         return gvc;
+    }
+
+    public GestionTutoresController getGtc() {
+        return gtc;
     }
 }
