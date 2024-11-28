@@ -87,7 +87,7 @@ public class BuscarComentarioController implements Initializable {
     void onSearchAction(ActionEvent event) {
         listaComentarios.clear();
 
-        String querry = "SELECT * FROM comnetariocaptacion WHERE id_comentario = ?";
+        String querry = "SELECT * FROM comnetariocaptacion WHERE id_empresa = ?";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
