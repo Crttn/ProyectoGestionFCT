@@ -28,6 +28,15 @@ import java.util.ResourceBundle;
 public class BuscarComentarioController implements Initializable {
 
     @FXML
+    private TableColumn<ComentarioCaptacion, Integer> idDocenteColumn;
+
+    @FXML
+    private TableColumn<ComentarioCaptacion, String> nombreDocenteColumn;
+
+    @FXML
+    private TableColumn<ComentarioCaptacion, String> nombreEmpresaColumn;
+
+    @FXML
     private TableView<ComentarioCaptacion> comentarioTableView;
 
     @FXML
@@ -72,6 +81,9 @@ public class BuscarComentarioController implements Initializable {
         idEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().idEmpresaProperty().asObject());
         fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
         comentarioColumn.setCellValueFactory(cellData -> cellData.getValue().comentarioProperty());
+        nombreEmpresaColumn.setCellValueFactory(cellData -> cellData.getValue().nombreEmpresaProperty());
+        idDocenteColumn.setCellValueFactory(cellData -> cellData.getValue().idDocenteProperty().asObject());
+        nombreDocenteColumn.setCellValueFactory(cellData -> cellData.getValue().nombrrDocenteProperty());
 
 
         listaComentarios = FXCollections.observableArrayList();
@@ -87,7 +99,7 @@ public class BuscarComentarioController implements Initializable {
     void onSearchAction(ActionEvent event) {
         listaComentarios.clear();
 
-        String querry = "SELECT * FROM comnetariocaptacion WHERE id_empresa = ?";
+        String querry = "SELECT comnetariocaptacion.*, empresa.nombre,tutordocente.id_tutor_docente, tutordocente.nombre FROM `comnetariocaptacion` INNER JOIN empresa on comnetariocaptacion.id_empresa = empresa.id_empresa INNER JOIN tutordocente on comnetariocaptacion.id_tutor_docente = tutordocente.id_tutor_docente WHERE id_empresa = ?;";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
@@ -96,7 +108,14 @@ public class BuscarComentarioController implements Initializable {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(resultSet.getInt("id_comentario"), resultSet.getDate("fecha"), resultSet.getString("comentario"), resultSet.getInt("id_empresa"));
+                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(
+                            resultSet.getInt("id_comentario"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("comentario"),
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getString("empresa.nombre"),
+                            resultSet.getInt("id_tutor_docente"),
+                            resultSet.getString("tutordocente.nombre"));
                     listaComentarios.add(comentarioCaptacion);
                 }
             }
@@ -110,13 +129,20 @@ public class BuscarComentarioController implements Initializable {
     void onSearchAllAction(ActionEvent event) {
         listaComentarios.clear();
 
-        String querry = "SELECT * FROM comnetariocaptacion";
+        String querry = "SELECT comnetariocaptacion.*, empresa.nombre,tutordocente.id_tutor_docente, tutordocente.nombre FROM `comnetariocaptacion` INNER JOIN empresa on comnetariocaptacion.id_empresa = empresa.id_empresa INNER JOIN tutordocente on comnetariocaptacion.id_tutor_docente = tutordocente.id_tutor_docente;";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(resultSet.getInt("id_comentario"), resultSet.getDate("fecha"), resultSet.getString("comentario"), resultSet.getInt("id_empresa"));
+                    ComentarioCaptacion comentarioCaptacion = new ComentarioCaptacion(
+                            resultSet.getInt("id_comentario"),
+                            resultSet.getDate("fecha"),
+                            resultSet.getString("comentario"),
+                            resultSet.getInt("id_empresa"),
+                            resultSet.getString("empresa.nombre"),
+                            resultSet.getInt("id_tutor_docente"),
+                            resultSet.getString("tutordocente.nombre"));
                     listaComentarios.add(comentarioCaptacion);
                 }
             }

@@ -16,13 +16,19 @@ public class ComentarioCaptacion {
     private final ObjectProperty<Date> fecha;
     private final StringProperty comentario;
     private final IntegerProperty idEmpresa;
+    private final StringProperty nombreEmpresa;
+    private final IntegerProperty idDocente;
+    private final StringProperty nombrrDocente;
 
     // Constructor
-    public ComentarioCaptacion(int idComentario, Date fecha, String comentario, int idEmpresa) {
+    public ComentarioCaptacion(int idComentario, Date fecha, String comentario, int idEmpresa, String nombreEmpresa, int idDocente, String nombreDocente) {
         this.idComentario = new SimpleIntegerProperty(idComentario);
         this.fecha = new SimpleObjectProperty<>(fecha);
         this.comentario = new SimpleStringProperty(comentario);
         this.idEmpresa = new SimpleIntegerProperty(idEmpresa);
+        this.nombreEmpresa = new SimpleStringProperty(nombreEmpresa);
+        this.idDocente = new SimpleIntegerProperty(idDocente);
+        this.nombrrDocente = new SimpleStringProperty(nombreDocente);
     }
 
     // Getters y Setters para las Properties
@@ -74,13 +80,17 @@ public class ComentarioCaptacion {
         this.idEmpresa.set(idEmpresa);
     }
 
-    @Override
-    public String toString() {
-        return "ComentarioCaptacion{" +
-                "idComentario=" + idComentario.get() +
-                ", fecha=" + fecha.get() +
-                ", comentario='" + comentario.get() + '\'' +
-                ", idEmpresa=" + idEmpresa.get() +
-                '}';
+    public StringProperty nombreEmpresaProperty() {
+        return nombreEmpresa;
+    }
+
+
+    public IntegerProperty idDocenteProperty() {
+        return idDocente;
+    }
+
+
+    public StringProperty nombrrDocenteProperty() {
+        return nombrrDocente;
     }
 }
