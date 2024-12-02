@@ -209,17 +209,6 @@ public class ModificarAlumnoController implements Initializable {
             return false;
         }
 
-        String dniAlumnoStr = dniTextField.getText();
-
-        // Verificamos si el DNI ya existe en la base de datos
-        if (existeDINAlumnoEnBaseDeDatos(Integer.parseInt(dniAlumnoStr))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error en DNI alumno");
-            alert.setHeaderText("El DNI ya existe en la base de datos.");
-            alert.showAndWait();
-            return false;
-        }
-
         //Correo
         if (correoTextField.getText()== null || !correoTextField.getText().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -256,23 +245,4 @@ public class ModificarAlumnoController implements Initializable {
         }
         return true;
     }
-
-    //Verificar si el alumno existe en la base
-
-    private boolean existeDINAlumnoEnBaseDeDatos(int idAlumno) {
-        String query = "SELECT COUNT(*) FROM alumno WHERE dni = ?";
-        try (Connection connection = DatabaseManager.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setInt(1, idAlumno);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 }

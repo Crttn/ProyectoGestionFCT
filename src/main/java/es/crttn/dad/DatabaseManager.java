@@ -18,8 +18,8 @@ public class DatabaseManager {
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
-        config.setConnectionTimeout(30000);
-        config.setMaxLifetime(1800000);
+        config.setConnectionTimeout(30000); // 30 segundos
+        config.setMaxLifetime(1800000); //30 minutos
 
         dataSource = new HikariDataSource(config);
     }

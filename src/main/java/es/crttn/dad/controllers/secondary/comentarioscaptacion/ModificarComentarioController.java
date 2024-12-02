@@ -33,12 +33,16 @@ public class ModificarComentarioController implements Initializable {
     private TextField idEmpresaTextField;
 
     @FXML
+    private TextField idDocenteTextField;
+
+    @FXML
     private BorderPane root;
 
     private IntegerProperty idComentarioProperty = new SimpleIntegerProperty();
     private ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
     private StringProperty comentarioProperty = new SimpleStringProperty();
     private IntegerProperty empresaProperty = new SimpleIntegerProperty();
+    private IntegerProperty idDocenteProperty = new SimpleIntegerProperty();
 
     public ModificarComentarioController() {
         try {
@@ -57,6 +61,7 @@ public class ModificarComentarioController implements Initializable {
         fechaDatePicker.valueProperty().bindBidirectional(fechaProperty);
         comentarioTextArea.textProperty().bindBidirectional(comentarioProperty);
         idEmpresaTextField.textProperty().bindBidirectional(empresaProperty, new NumberStringConverter());
+        idDocenteTextField.textProperty().bindBidirectional(idDocenteProperty, new NumberStringConverter());
     }
 
     public BorderPane getRoot() {
@@ -76,6 +81,7 @@ public class ModificarComentarioController implements Initializable {
                     fechaProperty.setValue(resultSet.getDate("fecha").toLocalDate());
                     comentarioProperty.setValue(resultSet.getString("comentario"));
                     empresaProperty.setValue(resultSet.getInt("id_empresa"));
+                    idDocenteProperty.setValue(resultSet.getInt("id_tutor_docente"));
                 }
             }
 
@@ -92,14 +98,16 @@ public class ModificarComentarioController implements Initializable {
             return;
         }
 
-        String querry = "UPDATE comnetariocaptacion SET fecha = ?, comentario = ?, id_empresa = ?";
+        String querry = "UPDATE comnetariocaptacion SET fecha = ?, comentario = ?, id_empresa = ?, id_tutor_docente = ? WHERE id_comentario = ?";
 
-        if (fechaProperty.getValue() != null && comentarioProperty.getValue() != null && empresaProperty.getValue() != null) {
+        if (fechaProperty.getValue() != null && comentarioProperty.getValue() != null && empresaProperty.getValue() != null && idDocenteProperty.getValue() != null) {
             try (Connection connection = DatabaseManager.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(querry)) {
 
                 statement.setDate(1, Date.valueOf(fechaProperty.getValue()));
                 statement.setString(2, comentarioProperty.getValue());
                 statement.setInt(3, empresaProperty.getValue());
+                statement.setInt(4, idDocenteProperty.getValue());
+                statement.setInt(5, idComentarioProperty.getValue());
 
                 //Ejecuta la consulta
                 statement.executeUpdate();
@@ -110,9 +118,10 @@ public class ModificarComentarioController implements Initializable {
                 alert.showAndWait();
 
                 // Limpiar campos
-                fechaProperty.setValue(null);
-                comentarioProperty.setValue(null);
-                empresaProperty.setValue(null);
+                fechaDatePicker.setValue(null);
+                comentarioTextArea.setText("");
+                idEmpresaTextField.setText("");
+                idDocenteTextField.setText("");
 
 
             } catch (Exception e) {
@@ -175,6 +184,24 @@ public class ModificarComentarioController implements Initializable {
             return false;
         }
 
+        String idDocenteStr = idDocenteTextField.getText();
+        try {
+            int idDocente = Integer.parseInt(idDocenteStr);
+            if (!existeIdDocenteEnBaseDeDatos(idDocente)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Docente");
+                alert.setHeaderText("El ID Docente no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Docente");
+            alert.setHeaderText("El ID Docente debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
         return true;
     }
 
@@ -195,4 +222,19 @@ public class ModificarComentarioController implements Initializable {
         return false;
     }
 
+    private boolean existeIdDocenteEnBaseDeDatos(int idTutorDocente) {
+        String query = "SELECT COUNT(*) FROM tutordocente WHERE id_tutor_docente = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idTutorDocente);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

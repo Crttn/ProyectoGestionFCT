@@ -31,7 +31,6 @@
       <version>2.0.16</version>
     </dependency>
 
-    <!-- ikonli -->
     <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-javafx -->
     <dependency>
       <groupId>org.kordamp.ikonli</groupId>
@@ -47,7 +46,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.33</version> <!-- Asegúrate de que sea compatible con tu configuración -->
+      <version>8.0.33</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->

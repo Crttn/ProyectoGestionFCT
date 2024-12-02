@@ -30,11 +30,15 @@ public class CrearComentarioController implements Initializable {
     private TextField idEmpresaTextField;
 
     @FXML
+    private TextField idDocenteTextField;
+
+    @FXML
     private BorderPane root;
 
     private ObjectProperty<LocalDate> fechaProperty = new SimpleObjectProperty<>();
     private StringProperty comentarioProperty = new SimpleStringProperty();
     private IntegerProperty empresaProperty = new SimpleIntegerProperty();
+    private IntegerProperty idDonceteProperty = new SimpleIntegerProperty();
 
     public CrearComentarioController() {
         try {
@@ -52,6 +56,7 @@ public class CrearComentarioController implements Initializable {
         fechaTextField.valueProperty().bindBidirectional(fechaProperty);
         comentarioTextArea.textProperty().bindBidirectional(comentarioProperty);
         idEmpresaTextField.textProperty().bindBidirectional(empresaProperty, new NumberStringConverter());
+        idDocenteTextField.textProperty().bindBidirectional(idDonceteProperty, new NumberStringConverter());
     }
 
     public BorderPane getRoot() {
@@ -66,7 +71,7 @@ public class CrearComentarioController implements Initializable {
             return;
         }
 
-        String query = "INSERT INTO comnetariocaptacion (fecha, comentario, id_empresa) VALUES (?, ?, ?)";
+        String query = "INSERT INTO comnetariocaptacion (fecha, comentario, id_empresa, id_tutor_docente) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -78,6 +83,7 @@ public class CrearComentarioController implements Initializable {
                 statement.setDate(1, Date.valueOf(fechaProperty.getValue()));
                 statement.setString(2, comentarioProperty.getValue()); // Convertir java.util.Date a java.sql.Date
                 statement.setInt(3, empresaProperty.getValue());
+                statement.setInt(4, idDonceteProperty.getValue());
 
                 // Ejecutar la consulta
                 int filasAfectadas = statement.executeUpdate();
@@ -88,6 +94,7 @@ public class CrearComentarioController implements Initializable {
                 comentarioProperty.setValue(null);
                 empresaProperty.setValue(null);
                 idEmpresaTextField.setText("");
+                idDocenteTextField.setText("");
 
             } else {
                 System.out.println("Error: Todos los campos son obligatorios.");
@@ -152,6 +159,24 @@ public class CrearComentarioController implements Initializable {
             return false;
         }
 
+        String idDocenteStr = idDocenteTextField.getText();
+        try {
+            int idDocente = Integer.parseInt(idDocenteStr);
+            if (!existeIdDocenteEnBaseDeDatos(idDocente)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error en ID Docente");
+                alert.setHeaderText("El ID Docente no coincide con ningún registro en la base de datos.");
+                alert.showAndWait();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error en ID Docente");
+            alert.setHeaderText("El ID Docente debe ser un número entero.");
+            alert.showAndWait();
+            return false;
+        }
+
         return true;
     }
 
@@ -162,6 +187,22 @@ public class CrearComentarioController implements Initializable {
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, idEmpresa);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean existeIdDocenteEnBaseDeDatos(int idTutorDocente) {
+        String query = "SELECT COUNT(*) FROM tutordocente WHERE id_tutor_docente = ?";
+        try (Connection connection = DatabaseManager.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idTutorDocente);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;

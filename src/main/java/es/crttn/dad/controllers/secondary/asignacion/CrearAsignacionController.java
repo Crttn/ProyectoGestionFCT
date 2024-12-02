@@ -315,7 +315,7 @@ public class CrearAsignacionController implements Initializable {
     //Verificar si el id docente existe en la base
 
     private boolean existeIdDocenteEnBaseDeDatos(int idDocente) {
-        String query = "SELECT COUNT(*) FROM tutordocente WHERE id_docente = ?";
+        String query = "SELECT COUNT(*) FROM tutordocente WHERE id_tutor_docente = ?";
         try (Connection connection = DatabaseManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
